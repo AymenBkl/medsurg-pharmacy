@@ -32,6 +32,7 @@ import { OrderService } from './services/crm/order.service';
 import { PrescriptionService } from './services/prescription.service';
 import { CashfreeService } from './services/cashfree.service';
 import { HTTP } from '@ionic-native/http/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -62,6 +63,7 @@ import { HTTP } from '@ionic-native/http/ngx';
     OrderService,
     PrescriptionService,
     CashfreeService,
+    Base64ToGallery,
     HTTP,
     {
       provide: HTTP_INTERCEPTORS,

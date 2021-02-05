@@ -5,6 +5,7 @@ import { User } from 'src/app/interfaces/user';
 import { InteractionService } from '../../../services/interaction.service';
 import { Comment } from 'src/app/interfaces/comment';
 import { ModalControllers } from 'src/app/classes/modalControllers';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @Component({
   selector: 'app-prescription',
@@ -29,7 +30,8 @@ export class PrescriptionComponent implements OnInit {
   constructor(private navParam: NavParams,
               private interactionService: InteractionService,
               private modalCntrl: ModalController,
-              private actionSheetController:ActionSheetController) {
+              private actionSheetController:ActionSheetController,
+              private base64ToGallery: Base64ToGallery) {
                 this.modalControllers = new ModalControllers(modalCntrl);
                }
 
@@ -106,7 +108,7 @@ export class PrescriptionComponent implements OnInit {
       })
   }
 
-  async presentActionSheet() {
+  async presentActionSheet(file:string) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Albums',
       cssClass: 'my-custom-class',
@@ -115,7 +117,7 @@ export class PrescriptionComponent implements OnInit {
         text: 'Save',
         icon: 'cloud-download-outline',
         handler: () => {
-          console.log('Share clicked');
+          this.downloadFile(file);
         }
       },{
         text: 'Cancel',
@@ -128,5 +130,16 @@ export class PrescriptionComponent implements OnInit {
     });
     await actionSheet.present();
   }
+
+
+  downloadFile(file:string){
+    console.log(file);
+    this.base64ToGallery.base64ToGallery(file, { prefix: '_img' ,mediaScanner:true}).then(
+      res => console.log('Saved image to gallery ', res),
+      err => console.log('Error saving image to gallery ', err)
+    );
+  }
+
+
 
 }
