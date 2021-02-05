@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { InteractionService } from '../../services/interaction.service';
 import { Router} from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { ResetPasswordPage } from '../reset-password/reset-password.page';
 
 @Component({
   selector: 'app-login',
@@ -95,6 +96,34 @@ export class LoginPage implements OnInit {
 
   ionViewDidEnter() {
     this.submitted = false;
+  }
+
+  async resetPassword() {
+    const modal = await this.modalController.create({
+      component: ResetPasswordPage,
+    });
+    modal.onDidDismiss()
+      .then(data => {
+        console.log(data);
+        if (data && data.data && data.data.success) {
+          console.log("here");
+          this.loginForm.patchValue({
+            phoneNumber: data.data.phoneNumber,
+            password: data.data.newPassword
+          })
+        }
+      });
+    return await modal.present();
+  }
+
+  numberOnlyValidation(event: any) {
+    const pattern = /[0-9.,]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
 

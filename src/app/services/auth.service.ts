@@ -8,6 +8,7 @@ import { ProccessHttpErrosService } from './proccess-http-erros.service';
 import { AuthResponse } from '../interfaces/response';
 import { catchError } from 'rxjs/operators';
 import { PaymentDetail } from '../interfaces/paymentDetail';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class AuthService {
   isAuthenticated = false;
   constructor(private httpClient: HttpClient,
     private storageService: StorageService,
-    private httpErrorHandler: ProccessHttpErrosService) {
+    private httpErrorHandler: ProccessHttpErrosService,
+    private angularFireAuth: AngularFireAuth,) {
   }
 
   checkJWT() {
@@ -56,6 +58,55 @@ export class AuthService {
       }
     })
 
+  }
+
+  resetPassword(password: string,phoneNumber: string) {
+    return new Promise((resolve, reject) => {
+      this.destroyUserCredentials();
+      this.httpClient.post<AuthResponse>(this.authURL + 'login/resetpassword', {phoneNumber : phoneNumber , password : password})
+        .subscribe(response => {
+          console.log(response);
+          if (response.status === 200){
+            resolve(true);
+          }
+          else {
+            resolve(false);
+          }
+        }, err => {
+
+          reject(this.httpErrorHandler.handleError(err));
+        });
+    });
+  }
+
+  verifyPhoneNumber(phone,recaptha) {  
+    return new Promise((resolve, reject) => {
+      console.log(phone)
+      
+      this.angularFireAuth.signInWithPhoneNumber('+213770979283', recaptha)
+      .then(result => {
+        console.log("result",result);
+        resolve(result);
+      })
+      .catch(err=>{
+        console.log("rr",err);
+        reject(err);
+      })
+    })
+  }
+
+  public verifyOTP(confirmationResult, verificationNumber) {
+    return new Promise((resolve, reject) => {
+      confirmationResult.confirm(verificationNumber)
+        .then(() => {
+          console.log("here");
+          resolve(true);
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err);
+        })
+    })
   }
 
   signUp(user: User) {
