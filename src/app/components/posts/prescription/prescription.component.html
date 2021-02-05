@@ -25,11 +25,16 @@
             {{prescription.description}}
           </ion-text>
         </ion-item>
-        <ion-item lines="none" class="prescription-holder">
-            <label for="file-input">
-              <img *ngIf="prescription && prescription.imageUrl != ''" [src]="prescription.imageUrl"  />
-              <img *ngIf="!prescription || prescription.imageUrl == ''" src="../../../../assets/imgs/medical-prescription.png"  />
-            </label>
+        <ion-slides class="center-row"  [options]='slideOpts'  #slides pager>
+          <ion-slide class="slide intro-slide" *ngFor="let image of prescription.imageUrl;let i = index">
+            <ion-item line="none" class="prescription-holder">
+              <img [src]="image">
+            </ion-item>
+          </ion-slide>
+
+        </ion-slides>
+        <ion-item line="none" class="prescription-holder">
+          <img *ngIf="prescription.imageUrl.length == 0" src="../../../assets/imgs/photo.png">
         </ion-item>
         <ion-item lines="none" class="comment-holder">
           <div class="comment-holder">

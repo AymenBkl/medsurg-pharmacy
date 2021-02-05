@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController, NavParams } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSlides, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Prescription } from 'src/app/interfaces/prescriptions';
 import { User } from 'src/app/interfaces/user';
 import { InteractionService } from '../../../services/interaction.service';
@@ -19,6 +19,14 @@ export class PrescriptionComponent implements OnInit {
   prescription: Prescription;
   commentToAdd: Comment;
   modalControllers: ModalControllers;
+  @ViewChild('slides') slides: IonSlides;
+
+  currentSlide = 0;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+    onlyExternal: false
+  };
   constructor(private navParam: NavParams,
               private interactionService: InteractionService,
               private modalCntrl: ModalController) {
