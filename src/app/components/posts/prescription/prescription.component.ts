@@ -19,6 +19,7 @@ export class PrescriptionComponent implements OnInit {
   prescription: Prescription;
   commentToAdd: Comment;
   modalControllers: ModalControllers;
+  images: {url: any}[] = [];
   @ViewChild('slides') slides: IonSlides;
   slideOpts = {
     initialSlide: 0,
@@ -38,7 +39,24 @@ export class PrescriptionComponent implements OnInit {
   getData(){
     this.currentUser = this.navParam.get('user');
     this.prescription = this.navParam.get('prescription');
+    this.initImages();
     this.sortComments();
+  }
+
+  initImages(){
+    this.prescription.imageUrl.map((imageURL,i) => {
+      this.images.push({url:imageURL});
+    })
+  }
+
+  ngAfterViewInit() {
+    setTimeout(
+      ()=>{
+        if(this.slides){
+          this.slides.update();
+        }
+      },300
+    );
   }
 
 
