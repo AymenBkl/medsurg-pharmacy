@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="toolbar0">
+    <ion-buttons slot="start" >
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="title">
+      <ion-text class="title1">
+        Admin
+      </ion-text>
+      <ion-chip class="chip" *ngIf="currentUser != null">
+        <ion-avatar class="img">
+          <img *ngIf="!currentUser || currentUser.imageUrl == '' " src="../../../assets/imgs/patient.svg">
+          <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
+        </ion-avatar>
+      </ion-chip>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar">
+  </ion-toolbar>
+  <ion-searchbar class="search_bar-xyz" cancelButtonText="Custom Cancel" showCancelButton="focus" animated (ionCancel)="searchProducts('')"
+    autocorrect="off" inputmode="search" (keyup.enter)="onInput(searchbar.value)" placeholder="Search Main Product"
+    #searchbar>
+
+  </ion-searchbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="ion-no-padding" *ngIf="currentUser && searchProduct && (arrToDisplay.length > 0)">
+    <ion-virtual-scroll [items]="arrToDisplay" approxItemHeight="320px" approxHeaderHeight="10px" approxFooterHeight="10px">
+    <ion-row class="ion-no-padding row"  *virtualItem="let item;let itemBounds = bounds;" >
+      <ion-col  class="animate-item  col"  *ngFor="let itemToDisplay of item" size="6" size-md="4" size-lg="3"
+         routerDirection="forward" (click)="selectedProduct(itemToDisplay)">
+            <ion-card [class.selected]='checkProdExist(itemToDisplay).length > 0' *ngIf="itemToDisplay.mainProduct != null">
+              <ion-thumbnail>
+                <img *ngIf="itemToDisplay.mainProduct && itemToDisplay.mainProduct.imageUrl != ''" [src]="itemToDisplay.mainProduct.imageUrl"  />
+                <img *ngIf="itemToDisplay.mainProduct &&  itemToDisplay.mainProduct.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
+              </ion-thumbnail>
+              <ion-card-content>
+                <ion-text>
+                  <h6>{{itemToDisplay.mainProduct.name}}</h6>
+                  <!--<p>{{c.total_products}} {{'Products'| translate }}</p>-->
+                </ion-text>
+              </ion-card-content>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-virtual-scroll>
+  <ion-row class="bottom-row">
+    <ion-col size="12" >
+      <app-products [type]='"add-product"' [selectedProducts]='selectedProducts'></app-products>
+    </ion-col>
+    <ion-col size="12" *ngIf="selectedProducts.length > 0">
+      <ion-button shape="round" size="default" color="light"  expand="full" (click)="addComment()" >
+        <ion-text>Add Comment</ion-text>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <input id="files" type="file" style="visibility:hidden;" #files  accept=".xlsx, .xls">
+  </ion-grid>
+  <div class="spin" *ngIf="!currentUser && !searchProduct">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+</ion-content>

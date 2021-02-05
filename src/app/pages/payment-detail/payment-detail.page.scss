@@ -1,0 +1,279 @@
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+}
+
+.search_bar-xyz {
+    --background: white;
+    --border-radius: 50px;
+    --color: black;
+    --icon-color : black;
+    --cancel-button-color : red;
+    --box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    top : -35px;
+    width: 95%;
+    margin: 0 auto;
+    z-index: 99;
+    padding: 15px;
+    position: relative;
+  }
+  
+  
+  .title {
+  text-align: center;
+    color: white;
+    width: 100%;
+    position: relative;
+  }
+  
+  
+  
+  .toolbar {
+  --background: #2B91BF !important;
+  border-bottom-right-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+  }
+
+  .bottom-row {
+    text-align: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-bottom: 0% !important;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left : 0px;
+    min-height: 70px;
+    background: #2B91BF !important;
+}
+  
+  .toolbar0 {
+  --min-height : 50px;
+  --background: #2B91BF !important;
+  }
+  
+  .img {
+  height: 25px;
+  margin: 0 auto;
+  width: 25px;
+  }
+  
+  .button-header {
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 15px;
+  }
+  
+  .title1 {
+  display: inline-block;
+  
+  }
+  
+  .chip {
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -7px;
+  right: 15px;
+  }
+
+
+
+
+.card {
+    display: inline-block;
+    width: 98% !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    color : black;
+    min-height: 160px;
+}
+
+.card.selected {
+    background-color: #2B91BF;
+}
+
+.avatar-icon {
+    display: inline-block;
+    //width: 25%;
+    vertical-align: middle;
+    width: 120px;
+    height: 120px;
+}
+.container {
+    text-align: center;
+    display: inline-block;
+    width: 30% !important;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.col:last-child{
+    margin-bottom: 80px;
+}
+
+.container-info {
+  text-align: center;
+  display: inline-block;
+  width: 100% ;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.container-accepted {
+    text-align: center;
+    display: inline-block;
+    width: 80% ;
+    padding: 5px;
+    vertical-align: middle;
+    background-color: lightgreen;
+}
+
+.list-orders {
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+.inner-container{
+  font-size: 20px !important;
+  /* width: 50%; */
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
+  /* margin: 50% auto; */
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  bottom: 20px;
+  left: 45%;
+}
+
+.inner-item {
+    text-align: left;
+
+}
+
+.header-item {
+    display: inline-block;
+    width: 100% !important;
+    text-align: center;
+}
+.bottom {
+    border-top: 1px solid black;
+    display: inline;
+}
+.main-container {
+    width: 100%;
+    display: block;
+}
+
+.main-container-accepted {
+    width: 100%;
+    display: block;
+    background-color: lightgreen;
+}
+.bottom .inner-container {
+    display: inline;
+}
+.bottom .inner-container .inner-item:first-child {
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.bottom .inner-container .inner-item:last-child {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+    vertical-align: middle;
+
+}
+
+.ion-icon {
+  font-size: 22px !important;
+  vertical-align: middle;
+}
+h1 {
+  font-weight: bold;
+  font-size: 25px;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+.header {
+  position: relative;
+  margin: 0px 0px;
+  padding: 3px;
+  text-align: center;
+  font-size: 15px !important;
+}
+.price {
+  font-size : 22px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.address {
+  position: relative;
+  margin: 0px 0px;
+  padding: 3px;
+  text-align: left;
+  margin-top:15px;
+  font-size: 15px !important;
+}
+
+.address .icon {
+  font-size : 22px;
+  vertical-align: middle;
+}
+
+.address .label {
+  vertical-align: middle;
+  font-size: 15px !important;
+  vertical-align: middle;
+}
+
+@media screen and (min-width: 601px) {
+    .ion-icon {
+        font-size : 28px;
+    }
+    .inner-container{
+        font-size: 18px;
+    }
+    .inner-item-last {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        margin-top: 1%;
+        margin-left: -15%
+    }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+    
+    .ion-icon {
+        font-size : 18px;
+    }
+    .inner-container{
+        font-size: 11px;
+    }
+    .inner-item-last {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        margin-top: 25px;
+        margin-left: -50px
+    
+    }
+  }

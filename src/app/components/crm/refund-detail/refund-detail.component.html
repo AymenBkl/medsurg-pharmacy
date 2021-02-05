@@ -1,0 +1,88 @@
+<app-header  [type]="'modal'"></app-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-title class="title-patient">Pharmacy Details</ion-title>
+        <ion-item class="profile-holder">
+          <ion-avatar class="img">
+            <img *ngIf="!order.pharmacy || order.pharmacy.imageUrl == ''" src="../../../../../assets/imgs/pharmacy-user-img.png">
+            <img *ngIf="order.pharmacy && order.pharmacy.imageUrl != ''" [src]="order.pharmacy.imageUrl">
+          </ion-avatar>
+          <div class="header">
+          <ion-text class="name">
+            {{order.pharmacy.firstname}} {{order.pharmacy.lastname}}
+          </ion-text>
+        </div>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+    <ion-row *ngIf="order.address">
+      <ion-col size="12">
+        <ion-title class="title-patient">Address</ion-title>
+        <div  class="address">
+          {{order.address.city}},
+          {{order.address.streetName1}},
+          {{order.address.streetName2}},
+          {{order.address.buildingNumber}},
+          {{order.address.postalCode}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item  class="profile-holder" >
+          <ion-title class="title-patient">This refund is {{order.refund.payedByAdmin | uppercase}}</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-title class="title-patient">Medecins</ion-title>
+      <ion-col size="12" *ngFor="let product of order.products" >
+      <div  class="product-holder" *ngIf="product.refundedQuantity > 0" >
+        <ion-avatar class="product-img" *ngIf="product.refundedQuantity > 0">
+          <img *ngIf="!product.product.imageUrl || product.product.imageUrl == ''" src="../../../assets/imgs/capsules.svg">
+          <img *ngIf="product.product.imageUrl && product.product.imageUrl != ''" [src]="product.product.imageUrl">
+        </ion-avatar>
+        <div class="holder" *ngIf="product.refundedQuantity > 0">
+        <ion-title class="product-title">
+          {{product.product.mainProduct.name}}
+        </ion-title>
+        <ion-text class="product-detail">
+          CN : {{product.product.mainProduct.company_name}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          Description : {{product.product.mainProduct.description}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          PACKING : {{product.product.mainProduct.packing}} 
+        </ion-text>
+      </div>
+      <div class="product-nav" *ngIf="product.refundedQuantity > 0">
+        <ion-text>Quantity</ion-text> : {{product.quantity}}
+      </div>
+    </div>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-title class="title-patient">Refund Price</ion-title>
+        <div  class="total-price-holder">
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.refund.refund.refundPrice}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="bottom-row">
+      <ion-col size="12" *ngIf="order.refund.refund && order.refund.payedByAdmin != 'PICKUP' ">
+        <ion-button shape="round" size="default" color="light"  expand="full" (click)="pickUp()">
+          <ion-text>PICK UP REFUND</ion-text>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
+

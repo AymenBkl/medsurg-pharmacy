@@ -1,0 +1,104 @@
+<app-header [page]="'Orders'" [type]="'page'"></app-header>
+
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChangedStatus($event)"  value="PAID"   slot="fixed"   class="segments">
+    <ion-segment-button value="PAID">
+      <ion-label>RECIEVED</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="NOT PAIED">
+      <ion-label>NOT RECIEVED</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-segment (ionChange)="segmentChangedPayment($event)"  value="ALL"   slot="fixed"   class="segments segment-type1">
+    <ion-segment-button value="ALL">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="SUCCESS">
+      <ion-label>SUCCESS</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PENDING">
+      <ion-label>PENDING</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="ACTIVE">
+      <ion-label>ACTIVE</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="FAILED">
+      <ion-label>FAILED</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment (ionChange)="segmentChanged($event)"  value="all"   slot="fixed"  class="segments segment-type">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="created">
+      <ion-label>New</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="accepted">
+      <ion-label>Accepted</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="canceled">
+      <ion-label>Canceled</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="rejected">
+      <ion-label>Rejected</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="delivered">
+      <ion-label>Delivered</ion-label>
+    </ion-segment-button>
+    
+  </ion-segment>
+    <ion-list class="list-orders" *ngIf="allOrder">
+        <ion-item lines="none" class="item-order"  *ngFor="let order of allOrder[currentSegmentTypePaymentStatus][currentSegmentTypePayment][currentSegmentType]" (click)="goToOrderDetail(order)" [ngClass]="'item-order-' + order.status ">
+          <div class="main-container">
+          <div class="container" style="width: 20%;">
+            <img class="avatar-icon" *ngIf="order.method == 'cod'" src="../../../assets/imgs/cod.png"  width="50px" height="50px">
+            <img class="avatar-icon" *ngIf="order.method == 'card'" src="../../../assets/imgs/visa.png"  width="50px" height="50px">
+  
+        </div>
+          <div class="container">
+            <div class="container" style="text-align: center; width: 100%;">
+              <ion-label style="text-align: center; width: 100%;" class="inner-item" ><h1>{{order.patient.firstname}} {{order.patient.lastname}}</h1></ion-label>
+  
+            </div>
+            <div class="inner-container">
+  
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="time-outline"></ion-icon> : {{order.createdAt | date:'short'}}</ion-label>
+              <ion-label  class="inner-item" *ngIf="order.address != null"><ion-icon class="ion-icon" name="location-outline"></ion-icon> : Address : 
+                {{order.address.city}},
+                {{order.address.streetName1}},
+                {{order.address.streetName2}},
+                {{order.address.buildingNumber}},
+                {{order.address.postalCode}}
+              </ion-label>  
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="cash-outline"></ion-icon> : €{{order.totalPrice}}</ion-label>
+            </div>
+  
+            <div class="inner-container" >
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="document-outline"></ion-icon> : {{order._id}}</ion-label>
+              <ion-label>&nbsp;</ion-label>
+            </div>
+  
+            
+  
+          </div>
+          <hr>
+  
+          <div class="main-container bottom">
+            <div class="inner-container">
+              <ion-label class="inner-item" style="font-weight: bold;" *ngIf="order.method === 'cod' && order.status != 'delivered'"><ion-icon class="ion-icon" name="card-outline" ></ion-icon> : NOT PAID</ion-label> 
+              <ion-label class="inner-item" style="font-weight: bold;" *ngIf="order.method === 'cod' && order.status == 'delivered'"><ion-icon class="ion-icon" name="card-outline" ></ion-icon> : PAID</ion-label> 
+              <ion-label class="inner-item" style="font-weight: bold;" *ngIf="order.method === 'card' && order.paymentStatus.txStatus"><ion-icon class="ion-icon" name="card-outline" ></ion-icon> : {{order.paymentStatus.txStatus}}</ion-label>
+              <ion-label class="inner-item" style="font-weight: bold;" *ngIf="order.method === 'card' && !order.paymentStatus.txStatus"> <ion-icon class="ion-icon" name="card-outline" ></ion-icon> : {{order.paymentStatus.orderStatus}}</ion-label>            
+              <ion-label *ngIf="order.status == 'canceled' || order.status=='rejected'" class="inner-item" style="font-weight: bold;color:red">Order Status : {{order.status == 'cancel' ? 'CANCELED' : 'REJECTED'}}</ion-label>
+            <ion-label *ngIf="order.status == 'delivered'"  class="inner-item" style="font-weight: bold;color:green">Order Status : DELIVERED</ion-label>
+            <ion-label *ngIf="order.status == 'created'" class="inner-item" style="font-weight: bold;">Order Status : NEW ORDER</ion-label>
+          <ion-label *ngIf="order.status == 'accepted' || order.status == 'ongoing'" class="inner-item" style="font-weight: bold;color:green">Order Status : {{order.status == 'accepted' ? "ACCEPTED" : 'ONGOING' }}</ion-label>
+          </div>
+        </div>
+      </div>
+  
+        </ion-item>
+      </ion-list>
+</ion-content>

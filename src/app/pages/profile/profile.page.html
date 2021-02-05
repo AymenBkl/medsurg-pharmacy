@@ -1,0 +1,157 @@
+<app-header [page]="'Profile'" [type]="'page'"></app-header>
+
+<ion-content>
+
+  <ion-grid *ngIf="currentUser && currentUser != null">
+    <ion-row>
+      <ion-col size="12">
+        <ion-chip>
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-toggle [(ngModel)]="toggle"></ion-toggle>
+      </ion-chip>
+      </ion-col>
+      <ion-col size="12" class="col">
+        
+        <ion-avatar class="img">
+          <img *ngIf="!currentUser || currentUser.imageUrl == '' " src="../../../assets/imgs/pharmacy-user-img.png">
+          <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
+          <div class="rounded-input" *ngIf="toggle">
+            <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
+            <input id="files" type="file" style="visibility:hidden;" [(ngModel)]="image" (change)="selectedImage($event)" >
+          </div>
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="12" *ngIf="!toggle">
+        <div class="name-holder">
+          <ion-label class="display-name">
+            {{currentUser.firstname | uppercase}} {{currentUser.lastname | uppercase}}
+          </ion-label>
+        </div>
+        <div class="name-holder">
+          <ion-label class="username">
+            @{{currentUser.username}}
+          </ion-label>
+        </div>
+        <div class="name-holder">
+          <ion-label class="email">
+            {{currentUser.email}}
+          </ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="toggle">
+      <form novalidate  [formGroup]="profileForm"  class="form" (ngSubmit)="update()" data-aos="fade-up">
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-icon name="person-circle"></ion-icon>
+          <ion-input placeHolder="Firstname" formControlName="firstname"></ion-input>
+        </ion-item>
+        <ion-label class="label-error" *ngIf="formErrors && formErrors.firstname">*{{formErrors.firstname}}</ion-label>
+    
+        <ion-item lines="none" class="ion-input">
+          <ion-icon name="person-circle"></ion-icon>
+          <ion-input placeHolder="Lastname" formControlName="lastname"></ion-input>
+        </ion-item>
+        <ion-label class="label-error" *ngIf="formErrors && formErrors.lastname">*{{formErrors.lastname}}</ion-label>
+        <ion-button class="buttons" [disabled]="profileForm.invalid || submitted" (click)="update()" shape="round" size="default" expand="full">
+          <ion-label *ngIf="!submitted">UPDATE</ion-label>
+          <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+        </ion-button>
+      </form>
+    </ion-row>
+    <ion-row class="bottom-row" *ngIf="!toggle">
+      <ion-col size="12" class="card-holder" [routerLink]="['/tabs/tab4/prescriptions']">
+        <ion-card class="card">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/ordonnance.png">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">See Patients Prescriptions</ion-text>
+          </div>
+          <div class="name-holder">
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" class="card-holder" [routerLink]="['/tabs/tab4/categories']">
+        <ion-card class="card fourth">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/capsules.png">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">Categories</ion-text>
+          </div>
+          <div class="name-holder">
+            <ion-text class="card-subtitle"></ion-text>
+          </div>
+        </ion-card>
+
+        
+      </ion-col>
+      <ion-col size="12" class="card-holder" [routerLink]="['/tabs/tab4/payment-detail']">
+        <ion-card class="card fifth">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/bank.svg">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">Payment Detail</ion-text>
+          </div>
+          <div class="name-holder">
+            <ion-text class="card-subtitle"></ion-text>
+          </div>
+        </ion-card>
+        
+      </ion-col>
+      <ion-col size="12" class="card-holder" [routerLink]="['/tabs/tab4/refund']">
+        <ion-card class="card">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/refund.svg">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">Refunds</ion-text>
+          </div>
+          <div class="name-holder">
+            <ion-text class="card-subtitle"></ion-text>
+          </div>
+        </ion-card>
+      
+    </ion-col>
+      <ion-col size="12" class="card-holder" [routerLink]="['/tabs/tab4/messages']">
+        <ion-card class="card third">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/chatting.svg">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">Contact Admin</ion-text>
+          </div>
+          <div class="name-holder">
+            <ion-text class="card-subtitle"></ion-text>
+          </div>
+        </ion-card>
+        
+      </ion-col>
+      
+
+      <ion-col size="12" class="card-holder" (click)='logOut()'>
+        <ion-card class="card second">
+          <ion-avatar class="img-icon">
+            <img src="../../../assets/imgs/log-out.svg">
+          </ion-avatar>
+          <div class="name-holder">
+            <ion-text class="card-title">Logout</ion-text>
+          </div>
+          <div class="name-holder">
+            <ion-text class="card-subtitle"></ion-text>
+          </div>
+        </ion-card>
+        
+      </ion-col>
+
+      
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="spin" *ngIf="!currentUser">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+
+</ion-content>

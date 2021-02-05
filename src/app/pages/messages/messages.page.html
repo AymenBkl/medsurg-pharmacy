@@ -1,0 +1,16 @@
+<app-header [page]="'Messages'" [type]="'page'"></app-header>
+
+
+<ion-content>
+
+  <app-get-all-messages [user]='user' *ngIf="user"></app-get-all-messages>
+
+  <div class="spin" *ngIf="!user">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="callSendMessageController()" >
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,52 @@
+.label {
+    position: fixed;
+    bottom : 0px !important;
+    background-color: white;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+}
+
+.checkbox-label {
+    text-align: left;
+    width : 80%;
+    color : white;
+}
+.ion-checkbox {
+    --background :transparent;
+    --background-checked : transparent;
+    --border-color : transparent;
+    --border-color-checked :transparent;
+    --checkmark-color : transparent;
+    // --checkmark-width : 10%;
+    // margin-left: 7%;
+    margin: 0;
+    width: 0;
+    height: 0;
+}
+
+.center {
+    margin: 40px auto;
+}
+
+.icon {
+    background: white;
+    border-radius: 50%;    
+    color: #FFF;
+    width: 22px;
+    height: 22px;
+}
+
+.icon-checked {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;    
+    color : #07acf8;
+}
+
+.icon-holder {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}

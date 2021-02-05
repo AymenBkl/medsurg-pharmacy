@@ -1,0 +1,55 @@
+
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="toolbar0">
+        <ion-buttons slot="start" class="button-header">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="title">
+          <ion-text class="title1">
+            Pharmacy
+          </ion-text>
+          <ion-chip class="chip" *ngIf="currentUser != null">
+            <ion-avatar class="img">
+              <img *ngIf="!currentUser || currentUser.imageUrl == '' " src="../../../assets/imgs/patient.svg">
+              <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
+            </ion-avatar>
+          </ion-chip>
+        </ion-title>
+      </ion-toolbar>
+      <ion-toolbar class="toolbar">
+      </ion-toolbar>
+      <ion-searchbar class="search_bar-xyz" cancelButtonText="Custom Cancel" showCancelButton="focus" animated (ionCancel)="searchProducts('')"
+        autocorrect="off" inputmode="search" (keyup.enter)="onInput(searchbar.value)" placeholder="Search Main Product"
+        #searchbar>
+    
+      </ion-searchbar>
+    </ion-header>
+    
+    <ion-content>
+    
+      <ion-grid class="ion-no-padding" >
+        <ion-virtual-scroll [items]="arrToDisplay" approxItemHeight="320px" approxHeaderHeight="10px" approxFooterHeight="10px">
+        <ion-row class="ion-no-padding"  *virtualItem="let item;let itemBounds = bounds;" >
+          <ion-col  class="animate-item  col" *ngFor="let itemToDisplay of item" size="6" size-md="4" size-lg="3"
+             routerDirection="forward" (click)="goToaddProduct(itemToDisplay)">
+                <ion-card>
+                  <ion-thumbnail>
+                    <img *ngIf="itemToDisplay.imageUrl != ''" [src]="itemToDisplay.imageUrl"  />
+                    <img *ngIf="itemToDisplay.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
+                  </ion-thumbnail>
+                  <ion-card-content>
+                    <ion-text>
+                      <h6>{{itemToDisplay.name}}</h6>
+                      <!--<p>{{c.total_products}} {{'Products'| translate }}</p>-->
+                    </ion-text>
+                  </ion-card-content>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-virtual-scroll>
+      </ion-grid>
+      <div class="spin" *ngIf="!currentUser && !searchProduct">
+        <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+    
+    </ion-content>

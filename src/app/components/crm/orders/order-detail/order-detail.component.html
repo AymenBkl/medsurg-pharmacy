@@ -1,0 +1,141 @@
+<app-header [page]="'Order Detail'" [type]="'modal'"></app-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-title class="title-patient">Patient Details</ion-title>
+        <ion-item class="profile-holder">
+          <ion-avatar class="img">
+            <img *ngIf="!order.patient || order.patient.imageUrl == ''" src="../../../../../assets/imgs/patient.svg">
+            <img *ngIf="order.patient && order.patient.imageUrl != ''" [src]="order.patient.imageUrl">
+          </ion-avatar>
+          <div class="header">
+          <ion-text class="name">
+            {{order.patient.firstname}} {{order.patient.lastname}}
+          </ion-text>
+        </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="order.address">
+      <ion-col size="12">
+        <ion-title class="title-patient">Address</ion-title>
+        <div  class="address">
+          {{order.address.city}},
+          {{order.address.streetName1}},
+          {{order.address.streetName2}},
+          {{order.address.buildingNumber}},
+          {{order.address.postalCode}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col size="12">
+        <ion-item  class="profile-holder" >
+        <ion-title class="title-patient">Payed By Admin {{order.payedByAdmin}}</ion-title>
+      </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item  class="profile-holder" >
+          <ion-title class="title-patient">This Order is {{order.status | uppercase}}</ion-title>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" *ngIf="order.method == 'card' && order.paymentStatus.txStatus">
+        <ion-item  class="profile-holder" >
+          <ion-title class="title-patient">Payment is {{order.paymentStatus.txStatus | uppercase}}</ion-title>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" *ngIf="order.method == 'card' && !order.paymentStatus.txStatus">
+        <ion-item  class="profile-holder" >
+          <ion-title class="title-patient">Payment is {{order.paymentStatus.orderStatus | uppercase}}</ion-title>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" *ngIf="order.refund.refund" (click)='callRefundDetail()'>
+        <ion-item  class="profile-holder" >
+          <ion-title class="title-patient" >Check Refund</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-title class="title-patient">Medecins</ion-title>
+      <ion-col size="12" >
+      <div  class="product-holder" *ngFor="let product of order.products">
+        <ion-avatar class="product-img">
+          <img *ngIf="!product.product.imageUrl || product.product.imageUrl == ''" src="../../../assets/imgs/capsules.svg">
+          <img *ngIf="product.product.imageUrl && product.product.imageUrl != ''" [src]="product.product.imageUrl">
+        </ion-avatar>
+        <div class="holder">
+        <ion-title class="product-title">
+          {{product.product.mainProduct.name}}
+        </ion-title>
+        <ion-text class="product-detail">
+          CN : {{product.product.mainProduct.company_name}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          Description : {{product.product.mainProduct.description}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          IGST : {{product.product.mainProduct.igst}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          CGST : {{product.product.mainProduct.cgst}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          SGST : {{product.product.mainProduct.sgst}} 
+        </ion-text>
+        <ion-text class="product-detail">
+          PACKING : {{product.product.mainProduct.packing}} 
+        </ion-text>
+      </div>
+      <div class="product-nav">
+        Qauntity : {{product.quantity}}
+      </div>
+      <div class="product-nav">
+        <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{product.product.price}}
+      </div>
+    </div>
+    </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" *ngIf="commission">
+        <ion-title class="title-patient">Commission: {{commission.commission}}%</ion-title>
+        <div  class="total-price-holder1">
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.totalPrice -  (order.totalPrice*commission.commission)/100 }}
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <ion-title class="title-patient">Total Price</ion-title>
+        <div  class="total-price-holder">
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.totalPrice}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="bottom-row">
+      <ion-col size="8" >
+        <ion-select value="created" okText="Okay" cancelText="Dismiss" (ionChange)="statusChanged($event)" *ngIf="order.status == 'created' && order.method == 'cod'">
+          <ion-select-option value="accepted">Accepted</ion-select-option>
+          <ion-select-option value="rejected">Rejected</ion-select-option>
+        </ion-select>
+        <ion-button shape="round" size="default" color="success"  expand="full" *ngIf="order.status == 'accepted'" (click)="checkStatus()">
+          <ion-text>Delivered</ion-text>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" *ngIf="orderStatus != ''">
+        <ion-button shape="round" size="default" color="light"  expand="full" (click)="checkStatus()">
+          <ion-text>Update</ion-text>
+        </ion-button>
+      </ion-col>
+      <ion-col size="12" *ngIf="order.refund.refund && order.refund.payedByAdmin != 'PICKUP' ">
+        <ion-button shape="round" size="default" color="light"  expand="full" (click)="pickUp()">
+          <ion-text>PICK UP REFUND</ion-text>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>
+

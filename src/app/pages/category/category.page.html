@@ -1,0 +1,33 @@
+<app-header [page]="'Category Page'" [type]="'page'"></app-header>
+
+<ion-content>
+
+  <ion-grid class="ion-no-padding" >
+    <ion-row class="ion-no-padding" *ngIf="user && categories">
+      <ion-col *ngFor="let categorie of categories" class="animate-item ion-no-padding col" size="6" size-md="4" size-lg="3"
+         routerDirection="forward" (click)="openEditCategory(categorie)">
+            <ion-card>
+              <ion-thumbnail>
+                <img *ngIf="categorie.imageUrl != ''" [src]="categorie.imageUrl"  />
+                <img *ngIf="categorie.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
+              </ion-thumbnail>
+              <ion-card-content>
+                <ion-text>
+                  <h6>{{categorie.name}}</h6>
+                  <!--<p>{{c.total_products}} {{'Products'| translate }}</p>-->
+                </ion-text>
+              </ion-card-content>
+            
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="spin" *ngIf="!user && !categories">
+    <ion-spinner name="bubbles"></ion-spinner>
+</div>
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab-button (click)="openAddCategory()" >
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

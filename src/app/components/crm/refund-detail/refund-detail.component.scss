@@ -1,0 +1,183 @@
+.card {
+    min-height: 400px;
+    /* width: 100%; */
+    border-radius: 22px;
+}
+
+.profile-holder {
+    padding: 20px;
+    font-size: 15px;
+}
+
+.img {
+    text-align: center;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 19px;
+    word-break: break-all;
+    margin-left: 40px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.description {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.description .text {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.date {
+    display: block;
+    margin-left: 52px;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.prescription-holder {
+    display: block;
+}
+
+.prescription-holder img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header{
+    display: block;
+}
+
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+  }
+
+  .image-upload>input {
+    display: none;
+  }
+
+
+ion-fab {
+    color :#2B91BF;
+}
+
+.title-pharmacy {
+    font-weight: bold;
+    font-size: 20px;
+    color:black;
+    text-align: center;
+    width: 100%;
+}
+
+.product-holder {
+    display: inline-block;
+    border: 1px solid black;
+    --border-color: black;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-top: 0px;
+    height: 200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.product-img {
+    margin: 0 auto;
+    
+}
+
+.product-title {
+    font-weight: bold;
+    font-size: 15px;
+    color:black;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+.holder {
+    width: 100%;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.product-detail {
+    width: 50%;
+    display: inline-block;
+    margin-top : 15px;
+}
+
+.bottom-row {
+    text-align: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-bottom: 0% !important;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left : 0px;
+    min-height: 70px;
+    background: #2B91BF !important;
+}
+
+.product-nav {
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+}
+
+.total-price-holder {
+    display: inline-block;
+    border: 1px solid black;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    width: 100%;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom:120px;
+}
+
+.address {
+    display: block;
+    border: 1px solid black;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    width: 100%;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}
+
+ion-select {
+    background: #2dd36f;
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+}

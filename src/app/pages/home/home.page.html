@@ -1,0 +1,22 @@
+<app-header [page]="'Home'" [type]="'page'"></app-header>
+
+
+<ion-content>
+    <ion-grid>
+       <app-banner></app-banner>
+        <ion-row>
+            <ion-col size="12">
+                <app-products [type]="'home'" [user]="currentUser" *ngIf="currentUser != null"></app-products>
+            </ion-col>
+            <ion-col size="12">
+                <app-categories *ngIf="currentUser != null"></app-categories>
+            </ion-col>
+            <ion-col size="12">
+                <app-prescriptions  *ngIf="currentUser != null"></app-prescriptions>
+            </ion-col>
+        </ion-row>
+        
+    </ion-grid>
+    
+
+</ion-content>

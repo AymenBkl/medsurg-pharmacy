@@ -1,0 +1,132 @@
+.card {
+    min-height: 400px;
+    /* width: 100%; */
+    border-radius: 22px;
+}
+
+.profile-holder {
+    padding: 20px;
+    font-size: 15px;
+}
+
+.card:first-child {
+    margin-top: 75px;
+}
+
+.img {
+    text-align: center;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 19px;
+    word-break: break-all;
+    margin-left: 40px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.description {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.description .text {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.date {
+    display: block;
+    margin-left: 52px;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.prescription-holder {
+    display: block;
+}
+
+.prescription-holder img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header{
+    display: block;
+}
+
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+  }
+
+  .comment-holder.highlited {
+    --background: #2dd36f;
+}
+
+  .not-found{
+    position: fixed;
+    top: 50%;
+    text-align: center;
+    left: 50%;
+    width: 100%;
+    color: black;
+    transform: translate(-50%, -50%);
+  }
+
+.comment-holder {
+    text-align: left;
+    width: 100%;
+    display: inline;
+    padding: 5px;
+    margin-bottom: 5px;
+
+}
+
+.comment-holder h1 {
+    text-align: center;
+    color: gray;
+}
+
+.comment-holder .img {
+    
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .add-comment {
+    display: inline-block;
+    width: 70%;
+    vertical-align: middle;
+    margin-left: 15px;
+  }
+
+
+  .text {
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+  }
+
+
+  .segments {
+    --background: white;
+    z-index: 9999;
+}
+

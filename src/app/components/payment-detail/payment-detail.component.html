@@ -1,0 +1,36 @@
+<ion-grid data-aos="fade-up">
+  <ion-row class="ion-align-items-center" data-aos="fade-up">
+    <ion-col size="12" size-md="8" offset-md="2" data-aos="fade-up">
+ <form novalidate  [formGroup]="paymentForm"  class="form" (ngSubmit)="addPaymentDetail()" data-aos="fade-up">
+    <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+      <ion-icon src="../../../../assets/imgs/bank.svg"></ion-icon>
+      <ion-input placeHolder="Bank Account Number" formControlName="bankAccountNumber"></ion-input>
+    </ion-item>
+    <ion-label class="label-error" *ngIf="formErrors && formErrors.bankAccountNumber">*{{formErrors.bankAccountNumber}}</ion-label>
+
+    <ion-item lines="none" class="ion-input">
+      <ion-icon src="../../../../assets/imgs/bank-normal.svg"></ion-icon>
+      <ion-input placeHolder="IFSCCODE" formControlName="IFSCCODE"></ion-input>
+    </ion-item>
+    <ion-label class="label-error" *ngIf="formErrors && formErrors.IFSCCODE">*{{formErrors.IFSCCODE}}</ion-label>
+
+    <ion-item lines="none" class="ion-input">
+      <ion-icon src="../../../../assets/imgs/credit-card.svg"></ion-icon>
+      <ion-input placeHolder="ACCOUNT HOLDER NAME" formControlName="ACCOUNTHOLDERNAME"></ion-input>
+    </ion-item>
+    <ion-label class="label-error" *ngIf="formErrors && formErrors.ACCOUNTHOLDERNAME">*{{formErrors.ACCOUNTHOLDERNAME}}</ion-label>
+    <ion-button class="buttons" [disabled]="paymentForm.invalid || submitted" (click)="addPaymentDetail()" shape="round" size="default" expand="full" *ngIf="!update">
+      <ion-label *ngIf="!submitted">Add Payment </ion-label>
+      <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+    </ion-button>
+    <ion-button class="buttons" [disabled]="paymentForm.invalid || submitted" (click)="updatePaymentDetail()" shape="round" size="default" expand="full" *ngIf="update">
+      <ion-label *ngIf="!submitted">Update Payment </ion-label>
+      <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+    </ion-button>
+    <ion-button class="buttons" [disabled]="submitted" (click)="back()" color="success" shape="round" size="default" expand="full" *ngIf="update">
+      <ion-label>Back</ion-label>
+    </ion-button>
+ </form>
+</ion-col>
+</ion-row>
+</ion-grid>

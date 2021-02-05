@@ -1,0 +1,45 @@
+<app-header  [type]="'page'"></app-header>
+
+<ion-content>
+  <ion-content>
+    <ion-grid *ngIf="currentUser">
+      <ion-row *ngIf="currentUser.paymentDetail && !update">
+        <ion-col class="col" size="12">
+          <ion-card lines="none" class="card">
+            <div class="main-container">
+              <div class="container-info">  
+                <div class="address">
+                  <ion-label class="label">
+                    <ion-icon class="icon"  src="/../../../assets/imgs/bank.svg"></ion-icon> Bank Account Number : {{currentUser.paymentDetail.bankAccountNumber}}
+                  </ion-label>
+                </div>
+                <div class="address">
+                  <ion-label class="label">
+                    <ion-icon class="icon"  src="../../../assets/imgs/bank-normal.svg"></ion-icon> IFSC code : {{currentUser.paymentDetail.IFSCCODE}}
+                  </ion-label>
+                </div>
+                <div class="address">
+                  <ion-label class="label">
+                    <ion-icon class="icon"  src="../../../assets/imgs/credit-card.svg"></ion-icon> Account Holder's Name : {{currentUser.paymentDetail.ACCOUNTHOLDERNAME}}
+                  </ion-label>
+                </div>
+              </div>
+              <hr>
+            </div>
+        </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!currentUser.paymentDetail || update">
+        <ion-col size="12" >
+          <app-payment-detail-component (paymentDetailAdded)="paymentDetailAdded($event)" [paymentDetail]='currentUser.paymentDetail' ></app-payment-detail-component>
+        </ion-col>
+      </ion-row>
+      <ion-row class="bottom-row" *ngIf="currentUser.paymentDetail && !update">
+        <ion-col size="12" >
+          <ion-button shape="round" size="default" color="success"  expand="full" (click)="updatePaymentDetail()" >
+            <ion-text>UPDATE PAYMETN DETAIL</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

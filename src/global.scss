@@ -1,0 +1,115 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.form {
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+}
+.ion-input {
+    border : 1px solid white;
+    border-bottom: 1px solid #024a6b;
+    border-right: 1px solid #024a6b;
+    border-radius: 15px;
+    --ripple-color : #024a6b;
+    --padding-end : 5px;
+    --padding-start : 5px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    width: 100%;
+    margin-top: 10px;
+    --ion-background-color: #2B91BF;
+    background-color: #2B91BF ;
+    --background-focused : #07acf8; 
+    --background-focused-opacity : 1;
+}
+
+
+
+
+
+.ion-input ion-icon {
+    --background-focused : #07acf8; 
+    --background-focused-opacity : 1;
+    width: 20%;
+    color: white;
+    display: inline-block;
+}
+
+.ion-input ion-input {
+    --background-focused : #07acf8; 
+    --background-focused-opacity : 1;
+    display: inline-block;
+    width: 80%;
+    color : white;
+}
+
+.buttons {
+    
+    margin-top: 15px;
+    text-align: center;
+    color: white;
+    --background: linear-gradient(-90deg, #07acf8 30%, #2B91BF 80%);
+    /* padding: 1px; */
+    border-radius: 15px;
+    --border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+      
+}
+
+.label-error {
+    color: red;
+    text-align: left;
+    font-weight: lighter;
+    font-size: 15px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+
+
+
+.button-header {
+    color : white;
+}
+
+
+.toast-customize  {
+    --border-radius : 15px;
+    --border-color :  linear-gradient(-90deg, #07acf8 30%, #2B91BF 80%);;
+    --border-style : solid;
+    --border-width : 1px;
+}
+
+.loading-customize {
+    --backdrop-opacity : 0.2;
+    --background :  linear-gradient(-90deg, #07acf8 30%, #2B91BF 80%) !important;
+    --spinner-color : black;
+    --border-radius : 15px;
+}

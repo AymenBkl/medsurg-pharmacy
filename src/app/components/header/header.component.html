@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="toolbar0" >
+    <ion-buttons slot="start" class="button-header" *ngIf="type == 'page'">
+      <ion-back-button defaultHref="/" (click)="back()" ></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="type == 'modal'" >
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="title">
+      <ion-text class="title1">
+        Pharmacy
+      </ion-text>
+      <ion-chip class="chip" *ngIf="currentUser != null">
+        <ion-avatar class="img">
+          <img *ngIf="!currentUser || currentUser.imageUrl == '' " src="../../../assets/imgs/pharmacy-user-img.png">
+          <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
+        </ion-avatar>
+        <ion-avatar class="img" (click)="logOut()">
+          <img src='../../../assets/imgs/log-out.svg' class='img'>
+        </ion-avatar>
+      </ion-chip>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar">
+  </ion-toolbar>
+  <div class="search_bar-xyz">
+    {{page}}
+  </div>
+</ion-header>

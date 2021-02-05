@@ -1,0 +1,27 @@
+<div class="name">
+  <ion-title class="home-title">
+    Categories
+  </ion-title>
+  <ion-slides class="animate-item" [options]="sliderConfig">
+    <ion-slide *ngFor="let categorie of categories" (click)="openEditCategory(categorie)">
+      <!-- For Real Products -->
+      <ion-card  class="card no-padding">
+        <img *ngIf="categorie.imageUrl != ''" [src]="categorie.imageUrl"  />
+        <img *ngIf="categorie.imageUrl == ''" src="../../../assets/imgs/capsules.png"  /> 
+        
+      </ion-card>
+      <div class="text-content">
+
+        <h6>{{categorie.name}}</h6>
+      </div>
+      <!-- For Skeleton -->
+      
+    </ion-slide>
+  </ion-slides>
+  <div class="name" *ngIf="categories && categories.length == 0  ">
+    <ion-title class="title">You don't have any categories </ion-title>
+  </div>
+  <div class="spin" *ngIf="!categories" >
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+</div>

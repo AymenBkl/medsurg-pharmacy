@@ -1,0 +1,39 @@
+.card {
+  padding: 15px;
+  display: inline-block;
+  border-radius: 15px;
+  position: relative;
+  --background : #07acf8;
+  min-height: 150px;
+}
+
+.card ion-text {
+  color : white;
+  font-size : 18px;
+  width: 70%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.card  img {
+  width: 90px;
+  height: 80px;
+  vertical-align: middle;
+}
+
+#card-pharmacy {
+  --background : #2FA561 !important;
+}
+
+#card-categorie {
+  --background : #2B91BF !important;
+}
+
+#card-post {
+  --background : #F49DA2 !important;
+}
+
+#card-patients {
+  --background : #2FA561 !important;
+}

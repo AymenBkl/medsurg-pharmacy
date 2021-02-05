@@ -1,0 +1,126 @@
+.rounded-input {
+    display: flex;
+    position: absolute;
+    color: #2B91BF;
+    font-size: 40px;
+    width: 100%;
+    top: 80%;
+    left: 38%;
+    text-align: center;
+  }
+
+  .btn {
+    width: 140%;
+    text-align: center;
+  }
+
+  .spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+  }
+
+
+  .header {
+    padding : 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.title {
+    color : black;
+    font-weight: bold;
+    font-size : 25px;
+}
+
+.title1 {
+    color : black;
+    font-weight: bold;
+    font-size : 20px;
+    text-align : center;
+}
+
+.ion-col {
+    width: 100%;
+    text-align: center;
+    font-size : 15px;
+    display: block;
+    height: 100%;
+}
+
+.center-row {
+    margin : 10% auto;
+    display: block;
+}
+.buttons {
+    display : block;
+    margin: 15% auto;
+}
+.intro {
+    text-align: center;
+    font-size : 5vw;
+    color : black;
+    font-weight: bold;
+    display: block;
+}
+
+.avatar {
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 0 auto;
+    display: block;
+    margin-top: 25px;
+    position: relative;
+}
+
+.slides {
+    width: 100%;
+}
+
+.slide {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.intro-slide {
+    display: block;
+}
+
+.ion-select {
+    border : 1px solid white;
+    border-bottom: 1px solid #024a6b;
+    border-right: 1px solid #024a6b;
+    border-radius: 15px;
+    --ripple-color : #024a6b;
+    --padding-end : 5px;
+    --padding-start : 5px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    width: 100%;
+    margin-top: 10px;
+    --ion-background-color: #2B91BF;
+    background-color: #2B91BF ;
+    --background-focused : #07acf8; 
+    --background-focused-opacity : 1;
+}
+
+.ion-select-option {
+    color : white;
+    --background : #024a6b;
+}
+
+.my-item {
+    display: inline;
+    width: 100%;
+}
+
+.label {
+    font-weight: bold;
+    font-size:15px;
+}

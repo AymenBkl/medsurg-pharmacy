@@ -1,0 +1,97 @@
+<app-header *ngIf="type != 'addproduct'" [page]="'Edit Medecin'" [type]="'modal'"></app-header>
+
+<ion-content>
+  <ion-grid *ngIf="currentProduct && currentProduct != null">
+    <ion-row>
+      <ion-col size="12">
+        <ion-chip>
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-toggle [(ngModel)]="toggle"></ion-toggle>
+      </ion-chip>
+      </ion-col>
+      <ion-col size="12" class="col">
+        
+        <ion-avatar class="img">
+          <img *ngIf="!currentProduct || currentProduct.imageUrl == '' " src="../../../assets/imgs/capsules.png">
+          <img *ngIf="currentProduct && currentProduct.imageUrl != ''" [src]="currentProduct.imageUrl">
+          <div class="rounded-input" *ngIf="toggle">
+            <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
+            <input id="files" type="file" style="visibility:hidden;" [(ngModel)]="image" (change)="selectedImage($event)" >
+          </div>
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="12" *ngIf="!toggle">
+        <div class="name-holder">
+          <ion-label class="display-name">
+            {{currentProduct.name | uppercase}}
+          </ion-label>
+        </div>
+        <div class="name-holder">
+          <ion-label class="username">
+            {{currentProduct.description}}
+          </ion-label>
+        </div>
+        <div class="name-holder">
+          <ion-label class="display-name">
+            {{currentProduct.price}}$
+          </ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="toggle">
+      <form novalidate  [formGroup]="productForm"  class="form" (ngSubmit)="update()" data-aos="fade-up">
+        <ion-label class="label-error" *ngIf="formErrors && formErrors.name">*{{formErrors.name}}</ion-label>
+        <ion-item lines="none" class="ion-input">
+          <ion-icon name="person-circle"></ion-icon>
+          <ion-input placeHolder="Medecin Price" formControlName="price"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin Name</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.name"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin Name</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.hsnocde" ></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin INITIAL_PRICE</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.initial_price"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin IGST</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.igst"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin SGST</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.sgst"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin PACKING</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.packing"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+          <ion-label class="label">Medecin COMPANY</ion-label>
+          <ion-input [disabled]="true" [value]="mainProduct.company_name"></ion-input>
+        </ion-item>
+        <ion-button class="buttons" [disabled]="productForm.invalid || submitted" (click)="update()" shape="round" size="default" expand="full">
+          <ion-label *ngIf="!submitted">UPDATE</ion-label>
+          <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+        </ion-button>
+      </form>
+    </ion-row>
+    <ion-row >
+      <ion-col size="8">
+      </ion-col>
+      <ion-col size="4" *ngIf="toggle">
+        <ion-button shape="round" size="default" color="danger" class="delete-btn" expand="full" (click)="deleteProduct()">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="spin" *ngIf="!currentProduct">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </div>
+</ion-content>

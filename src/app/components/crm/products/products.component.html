@@ -1,0 +1,93 @@
+<div class="name" *ngIf="products && type == 'home'">
+  <ion-title class="home-title">
+    Medecins
+  </ion-title>
+  <ion-slides class="animate-item" [options]="sliderConfig">
+    <ion-slide *ngFor="let product of products" (click)="openEditProduct(product)">
+      <!-- For Real Products -->
+      <ion-card  class="card1 no-padding" *ngIf="product.mainProduct != null">
+        <img *ngIf="product.imageUrl != ''" [src]="product.imageUrl"  />
+        <img *ngIf="product.imageUrl == ''" src="../../../assets/imgs/capsules.png"  /> 
+        
+      </ion-card>
+      <div class="text-content" *ngIf="product.mainProduct != null">
+
+        <h6 class="home">{{product.mainProduct.name}}</h6>
+      </div>
+      <!-- For Skeleton -->
+      
+    </ion-slide>
+  </ion-slides>
+
+</div>
+
+<div class="name" *ngIf="!products && type == 'home'">
+  <ion-title class="title">You didnt add any medecins !</ion-title>
+</div>
+
+<div class="category" *ngIf="products && type == 'category'">
+  <ion-title class="home-title">
+    Medecins
+  </ion-title>
+  <ion-slides class="animate-item" [options]="sliderConfig">
+    <ion-slide *ngFor="let product of products" (click)="openEditProduct(product)">
+      <!-- For Real Products -->
+      <ion-card  class="card1 no-padding" *ngIf="product.mainProduct != null">
+        <img *ngIf="product.imageUrl != ''" [src]="product.imageUrl"  />
+        <img *ngIf="product.imageUrl == ''" src="../../../assets/imgs/capsules.png"  /> 
+        
+      </ion-card>
+      <div class="text-content" *ngIf="product.mainProduct != null">
+
+        <h6>{{product.mainProduct.name}}</h6>
+      </div>
+      <!-- For Skeleton -->
+      
+    </ion-slide>
+  </ion-slides>
+
+</div>
+
+<div class="category" *ngIf="!products && type == 'category'">
+  <ion-title class="title">You didnt add any medecins !</ion-title>
+</div>
+
+<div class="selected-product" *ngIf="selectedProducts && selectedProducts.length > 0 && type == 'add-product'">
+  <ion-title class="home-title">
+    Selected Medecins
+  </ion-title>
+  <ion-slides class="animate-item" [options]="sliderConfig">
+    <ion-slide *ngFor="let product of selectedProducts;let i = index">
+      <!-- For Real Products -->
+      <ion-card  class="card no-padding">
+        <img *ngIf="product.product.imageUrl != ''" [src]="product.product.imageUrl"  />
+        <img *ngIf="product.product.imageUrl == ''" src="../../../assets/imgs/capsules.png"  /> 
+        
+      </ion-card>
+      <div class="text-content">
+
+        <h6>{{product.product.mainProduct.name}}</h6>
+      </div>
+      <div class="button-ajust-holder">
+        <ion-button fill="clear" size="small" class="button-cart" color="danger" (click)="removeQuantity(i)">
+          <ion-icon name="remove"></ion-icon>
+        </ion-button>
+        <p class="qunitity">{{product.quantity}}</p>
+        <ion-button fill="clear" size="small" class="button-cart" color="success" (click)="addQuantity(i)" >
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </div>
+      <!-- For Skeleton -->
+      
+    </ion-slide>
+  </ion-slides>
+</div>
+
+<div class="selected-product" *ngIf="!loading &&  selectedProducts && selectedProducts.length == 0 && type == 'add-product'">
+  <ion-title class="title">You didnt add any medecins !</ion-title>
+</div>
+
+
+<div class="spin" *ngIf="loading">
+  <ion-spinner name="bubbles"></ion-spinner>
+</div>

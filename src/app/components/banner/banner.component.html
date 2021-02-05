@@ -1,0 +1,36 @@
+<ion-slides pager="true" [options]="slideOpts">
+
+  <ion-slide  class="animate-item">
+    <ion-card class="card">
+      <ion-text>
+        Do you want to find your medecins faster ? 
+      </ion-text>
+        <img src="../../../assets/imgs/capsules.png">
+    </ion-card>
+  </ion-slide>
+  <ion-slide  class="animate-item">
+    <ion-card class="card" id="card-pharmacy" (click)="goTo('/tabs/tab4/categories')">
+      <ion-text>
+        See Medecins and update them
+      </ion-text>
+        <img src="../../../assets/imgs/pharmacy.png">
+    </ion-card>
+  </ion-slide>
+  <ion-slide  class="animate-item">
+    <ion-card class="card" id="card-categorie" (click)="goTo('tabs/tab3')">
+      <ion-text>
+        SEE YOUR RECENT ORDER
+      </ion-text>
+        <img src="../../../assets/imgs/pills.png">
+    </ion-card>
+  </ion-slide>
+  <ion-slide  class="animate-item">
+    <ion-card class="card" id="card-post" (click)="goTo('/tabs/tab4/prescriptions')">
+      <ion-text>
+        See Patietns Prescriptions
+      </ion-text>
+        <img src="../../../assets/imgs/medical-prescription.png">
+    </ion-card>
+  </ion-slide>
+
+</ion-slides>

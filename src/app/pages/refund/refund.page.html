@@ -1,0 +1,71 @@
+
+
+<app-header  [type]="'page'"></app-header>
+
+
+<ion-content>
+
+
+  <ion-segment (ionChange)="segmentChanged($event)"  value="all"   slot="fixed"  class="segments segment-type">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="NOT PAIED">
+      <ion-label>WAITING</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PICKUP">
+      <ion-label>PICKUP</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PAID">
+      <ion-label>PAID</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+    <ion-list class="list-orders">
+        <ion-item lines="none" class="item-order"  *ngFor="let refund of refunds[currentSegmentType];let i = index" (click)="goToRefundDetail(refund)" [ngClass]="'item-order-' + refund.order.status ">
+          <div class="main-container">
+          <div class="container" style="width: 20%;">
+            <img class="avatar-icon" *ngIf="refund.order.method == 'cod'" src="../../../assets/imgs/cod.png"  width="50px" height="50px">
+            <img class="avatar-icon" *ngIf="refund.order.method == 'card'" src="../../../assets/imgs/visa.png"  width="50px" height="50px">
+  
+        </div>
+          <div class="container">
+            <div class="container" style="text-align: center; width: 100%;">
+              <ion-label style="text-align: center; width: 100%;" class="inner-item" ><h1>{{refund.order.patient.firstname}} {{refund.order.patient.lastname}}</h1></ion-label>
+  
+            </div>
+            <div class="inner-container">
+  
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="time-outline"></ion-icon> : {{refund.order.createdAt | date:'short'}}</ion-label>
+              <ion-label  class="inner-item" *ngIf="refund.order.address != null"><ion-icon class="ion-icon" name="location-outline"></ion-icon> : Address : 
+                {{refund.order.address.city}},
+                {{refund.order.address.streetName1}},
+                {{refund.order.address.streetName2}},
+                {{refund.order.address.buildingNumber}},
+                {{refund.order.address.postalCode}}
+              </ion-label>
+  
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="cash-outline"></ion-icon> : €{{refund.order.totalPrice - refund.refundPrice}}</ion-label>
+            </div>
+  
+            <div class="inner-container" >
+              <ion-label class="inner-item"><ion-icon class="ion-icon" name="document-outline"></ion-icon> : {{refund.order._id}}</ion-label>
+              <ion-label>&nbsp;</ion-label>
+            </div>
+  
+            
+  
+          </div>
+          <hr>
+  
+          <div class="main-container bottom">
+            <div class="inner-container" >
+            <ion-label class="inner-item" style="font-weight: bold;"><ion-icon class="ion-icon" name="card-outline" ></ion-icon> : PAID</ion-label> 
+
+            <ion-label   class="inner-item" style="font-weight: bold;color:green">Order Status : DELIVERED</ion-label>
+          </div>
+        </div>
+      </div>
+  
+        </ion-item>
+      </ion-list>
+</ion-content>

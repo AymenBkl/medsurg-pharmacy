@@ -1,0 +1,78 @@
+.card {
+    min-height: 400px;
+    /* width: 100%; */
+    border-radius: 22px;
+}
+
+.profile-holder {
+    padding: 20px;
+    font-size: 15px;
+}
+
+.img {
+    text-align: center;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 19px;
+    word-break: break-all;
+    margin-left: 40px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.description {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.description .text {
+    font-size : 17px;
+    color: black;
+    font-weight: lighter;
+    word-wrap: break-word;         
+    overflow-wrap: break-word;     
+    width: 100%;
+}
+
+.date {
+    display: block;
+    margin-left: 52px;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.prescription-holder {
+    display: block;
+}
+
+.prescription-holder img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header{
+    display: block;
+}
+
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+  }
+
+  .image-upload>input {
+    display: none;
+  }
+
+
+ion-fab {
+    color :#2B91BF;
+}

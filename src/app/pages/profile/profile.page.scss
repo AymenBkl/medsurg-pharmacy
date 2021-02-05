@@ -1,0 +1,120 @@
+.img {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.col {
+    text-align: center;
+    position: relative;
+}
+
+.display-name {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+ion-chip {
+    margin-top: -15px;
+    float: right;
+    --background : white;
+}
+ion-toggle {
+    text-align: center;
+    --background : #2B91BF;
+    --background-checked : #07acf8;
+    --handle-background : #07acf8;
+    --handle-background-checked : #2B91BF;
+}
+.name-holder {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.username {
+    color : #8a8787;
+}
+
+.email {
+    font-size: 20px;
+}
+
+.bottom-row {
+    text-align: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-bottom: 0% !important;
+    width: 100%;
+    bottom: 0;
+    left : 0px;
+    background: #2B91BF !important;
+}
+
+.card-holder {
+    text-align: center;
+}
+
+.card {
+    text-align: center;
+    border-radius: 18px;
+    padding: 15px;
+    --background : #92f054;
+}
+
+.second {
+    --background : #e7063fd7;
+}
+
+.third {
+    --background : #29ffe283;
+}
+
+.fourth {
+    --background : #8a8787;
+}
+.img-icon {
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: white;
+    font-family: serif;
+}
+
+.card-subtitle {
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: black;
+}
+
+.rounded-input {
+    display: flex;
+    position: absolute;
+    color: #2B91BF;
+    font-size: 40px;
+    width: 100%;
+    top: 61%;
+    left: 31%;
+    text-align: center;
+  }
+
+  .btn {
+    width: 140%;
+    text-align: center;
+  }
+
+  .spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color : #2B91BF;
+    transform: translate(-50%, -50%);
+  }
