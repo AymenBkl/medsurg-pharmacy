@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, ModalController, NavController, NavParams } from '@ionic/angular';
+import { IonSlides, ModalController, NavController, NavParams,ActionSheetController } from '@ionic/angular';
 import { Prescription } from 'src/app/interfaces/prescriptions';
 import { User } from 'src/app/interfaces/user';
 import { InteractionService } from '../../../services/interaction.service';
@@ -28,7 +28,8 @@ export class PrescriptionComponent implements OnInit {
   };
   constructor(private navParam: NavParams,
               private interactionService: InteractionService,
-              private modalCntrl: ModalController) {
+              private modalCntrl: ModalController,
+              private actionSheetController:ActionSheetController) {
                 this.modalControllers = new ModalControllers(modalCntrl);
                }
 
@@ -103,6 +104,29 @@ export class PrescriptionComponent implements OnInit {
       await this.prescription.comments.sort((a,b) => {
         return this.calculateCommentPrice(a) - this.calculateCommentPrice(b);
       })
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      cssClass: 'my-custom-class',
+      buttons: [{
+         
+        text: 'Save',
+        icon: 'cloud-download-outline',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      },{
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }
