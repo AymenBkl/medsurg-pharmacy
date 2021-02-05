@@ -20,8 +20,6 @@ export class PrescriptionComponent implements OnInit {
   commentToAdd: Comment;
   modalControllers: ModalControllers;
   @ViewChild('slides') slides: IonSlides;
-
-  currentSlide = 0;
   slideOpts = {
     initialSlide: 0,
     speed: 400,

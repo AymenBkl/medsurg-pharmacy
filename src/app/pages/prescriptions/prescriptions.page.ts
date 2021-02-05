@@ -25,7 +25,6 @@ export class PrescriptionsPage implements OnInit {
   currentSegmentType: string = 'prescriptions';
   @ViewChild('slides') slides: IonSlides;
 
-  currentSlide = 0;
   slideOpts = {
     initialSlide: 0,
     speed: 400,

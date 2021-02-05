@@ -25,8 +25,8 @@
             {{prescription.description}}
           </ion-text>
         </ion-item>
-        <ion-slides class="center-row"  [options]='slideOpts'  #slides pager>
-          <ion-slide class="slide intro-slide" *ngFor="let image of prescription.imageUrl;let i = index">
+        <ion-slides class="center-row"  [options]='slideOpts' #slides pager>
+          <ion-slide class="slide intro-slide" *ngFor="let image of prescription.imageUrl">
             <ion-item line="none" class="prescription-holder">
               <img [src]="image">
             </ion-item>
