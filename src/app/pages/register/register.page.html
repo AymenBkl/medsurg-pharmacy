@@ -2,7 +2,7 @@
 
 <ion-content>
   <ion-grid data-aos="fade-up">
-  <ion-row class="ion-align-items-center" data-aos="fade-up">
+  <ion-row class="ion-align-items-center" data-aos="fade-up" *ngIf="step == 'register'">
     <ion-col size="12" size-md="8" offset-md="2" data-aos="fade-up">
  <form novalidate  [formGroup]="registerForm"  class="form" (ngSubmit)="register()" data-aos="fade-up">
     <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
@@ -34,8 +34,8 @@
     </ion-item>
     <ion-label class="label-error" *ngIf="formErrors && formErrors.confirmPassword">*{{formErrors.confirmPassword}}</ion-label>
 
-    <ion-button class="buttons" [disabled]="registerForm.invalid || submitted" (click)="register()" shape="round" size="default" expand="full">
-      <ion-label *ngIf="!submitted">REGISTER</ion-label>
+    <ion-button class="buttons" [disabled]="registerForm.invalid || submitted" (click)="sendToPhone()" shape="round" size="default" expand="full">
+      <ion-label *ngIf="!submitted">VERIFY PHONE</ion-label>
       <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
     </ion-button>
    
@@ -43,10 +43,33 @@
 </ion-col>
 </ion-row>
 <ion-row>
+  <ion-col size="12" size-md="8" offset-md="2" class="center">
+      <ion-label class="label-info" *ngIf="step === 'confirm OTP'" >
+          Code sent to +91 {{registerForm.value.phoneNumber}}</ion-label>  
+  <ion-item lines="none" class="ion-input" *ngIf="step === 'confirm OTP'">
+      <ion-icon name="call"></ion-icon>
+      <ion-input placeHolder="OTP" [(ngModel)]="verificationNumber" (keypress)="numberOnlyValidation($event)"></ion-input>
+  </ion-item>
+  <ion-button class="buttons" (click)="confirmOTP()" shape="round" size="default" expand="full"
+          *ngIf="step == 'confirm OTP'">
+          <ion-label *ngIf="!submitted">CONFIRM OTP AND REGISTER</ion-label>
+          <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+      </ion-button>
+  <ion-button class="buttons" (click)="back('register')" shape="round" size="default"
+          color="success" expand="full" *ngIf="step == 'confirm OTP'">
+          <ion-label *ngIf="!submitted">Change Phone</ion-label>
+          <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+      </ion-button>
+      
+  </ion-col>
+  
+</ion-row>
+<ion-row>
   <ion-col size="12" style="text-align: center;">
     <ion-label class="label">Already have an account ? <span [routerLink]="['/login']" class="span">Login</span></ion-label>
   </ion-col>
 </ion-row>
 </ion-grid>
+<div id="recaptcha-container" style="display:none"></div> 
 
 </ion-content>

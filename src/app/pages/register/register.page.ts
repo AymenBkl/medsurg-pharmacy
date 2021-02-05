@@ -7,6 +7,7 @@ import { onValueChanged } from './valueChanges';
 import { InteractionService } from '../../services/interaction.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,10 @@ export class RegisterPage implements OnInit {
   formErrors: any;
   submitted = false;
   validationErrors: {errmsg , errcode};
+  step:string = 'register';
+  recaptchaVerifier;
+  confirmationResult : any;
+  verificationNumber : string = '';
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private interactionService: InteractionService,
@@ -92,7 +97,65 @@ export class RegisterPage implements OnInit {
 
   ionViewDidEnter() {
     this.submitted = false;
+    this.recaptchaVerifier = new firebase.default.auth.RecaptchaVerifier('recaptcha-container',{'size' : 'invisible'}); 
   }
+
+  sendToPhone() {
+    this.submitted = true;
+    this.interactionService.createLoading("Sending Code")
+      .then(() => {
+        this.authService.verifyPhoneNumber(this.registerForm.value.phoneNumber,this.recaptchaVerifier)
+        .then(result => {
+          this.interactionService.hide();
+          this.submitted = false;
+          console.log("otp",result);
+          if (result){
+            this.confirmationResult = result;
+            this.step = 'confirm OTP';
+            this.interactionService.createToast('CODE HAS BEEN SENT', 'success', 'bottom');
+          }
+          else {
+            this.interactionService.createToast('Something Went Wrong ! Try Again', 'danger', 'bottom');
+          }
+        })
+        .catch(err => {
+          this.submitted = false;
+          console.log(err);
+          this.interactionService.hide();
+          this.interactionService.createToast('Something Went Wrong ! Try Again', 'danger', 'bottom');
+        })
+      })
+  }
+
+  confirmOTP() {
+    this.submitted = true;
+    this.interactionService.createLoading("Confirming OTP")
+      .then(() => {
+        this.authService.verifyOTP(this.confirmationResult,this.verificationNumber)
+        .then(result => {
+          this.submitted = false;
+          this.interactionService.hide();
+          if (result && result == true){
+            this.interactionService.createToast('OTP VERIFIED', 'success', 'bottom');
+            this.register();
+          }
+          else {
+            this.interactionService.createToast('Enter A Valid Number ! Try Again', 'danger', 'bottom');
+          }
+        })
+        .catch(err => {
+          this.submitted = false;
+          this.interactionService.hide();
+          this.interactionService.createToast('Enter A Valid Number ! Try Again', 'danger', 'bottom');
+        })
+      })
+    
+  }
+
+  back(step: string){
+    this.step = step;
+  }
+
 
   numberOnlyValidation(event: any) {
     const pattern = /[0-9.,]/;
@@ -103,4 +166,5 @@ export class RegisterPage implements OnInit {
       event.preventDefault();
     }
   }
+
 }

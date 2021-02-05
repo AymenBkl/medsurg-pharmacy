@@ -7,7 +7,7 @@
         <form novalidate [formGroup]="loginForm" class="form" (ngSubmit)="logIn()">
           <ion-item lines="none" class="ion-input">
             <ion-icon name="call"></ion-icon>
-            <ion-input placeHolder="Phone Number" formControlName="phoneNumber"></ion-input>
+            <ion-input placeHolder="Phone Number" formControlName="phoneNumber" (keypress)="numberOnlyValidation($event)"></ion-input>
           </ion-item>
           <ion-label class="label-error" *ngIf="formErrors && formErrors.phoneNumber">*{{formErrors.phoneNumber}}</ion-label>
           <ion-item lines="none" class="ion-input">
