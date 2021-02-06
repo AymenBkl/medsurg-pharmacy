@@ -134,7 +134,8 @@ export class OrderDetailComponent implements OnInit {
             .catch(err => console.log('Error launching dialer', err));
         }
         else {
-          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.CALL_PHONE])
+          console.log("request permission")
+          this.androidPermission.requestPermission(this.androidPermission.PERMISSION.CALL_PHONE)
             .then((result) => {
               if (result.hasPermission) {
                 this.callNumber.callNumber("+91" + phoneNumber, true)
@@ -142,9 +143,24 @@ export class OrderDetailComponent implements OnInit {
                   .catch(err => console.log('Error launching dialer', err));
               } else {
               }
+            })
+            .catch(err => {
+              console.log("errPermission", JSON.stringify(err));
             });
         }
-      });
+      })
+      .catch(err => {
+        console.log("errPermission", JSON.stringify(err));
+      });;
+
+    this.androidPermission.requestPermission(this.androidPermission.PERMISSION.CALL_PHONE)
+      .then((result) => {
+        if (result.hasPermission) {
+          this.callNumber.callNumber("+91" + phoneNumber, true)
+            .then(res => console.log('Launched dialer!', res))
+            .catch(err => console.log('Error launching dialer', err));
+        }
+      })
   }
 
 

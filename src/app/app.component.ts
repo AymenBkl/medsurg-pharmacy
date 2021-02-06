@@ -143,6 +143,11 @@ export class AppComponent implements OnInit {
         else {
           this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
         }
+      },err => {
+        console.log("permission not granted");
+        this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
+          this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
+          this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
       });
     this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
       this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,

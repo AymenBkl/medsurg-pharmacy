@@ -140,71 +140,81 @@ export class PrescriptionComponent implements OnInit {
 
 
   downloadFile(file: string) {
-   
+
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
       .then((result) => {
         if (result.hasPermission) {
           this.downloadViaURL(file);
         }
-
         else {
           console.log("request permission")
-          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE])
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
             .then((result) => {
+              console.log(result.hasPermission);
               if (result.hasPermission) {
                 this.downloadViaURL(file);
               } else {
-              }})
-              .catch(err => {
-                console.log("errPermission",JSON.stringify(err));
-              });
+              }
+            })
+            .catch(err => {
+              console.log("errPermission", JSON.stringify(err));
+            });
         }
       })
       .catch(err => {
-        console.log("errPermission",JSON.stringify(err));
+        console.log("errPermission", JSON.stringify(err));
       });;
+
+    this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+      .then((result) => {
+        console.log(result.hasPermission);
+        if (result.hasPermission) {
+          this.downloadViaURL(file);
+        }
+      })
 
   }
 
-  downloadViaURL(url){
+  downloadViaURL(url) {
 
     let path = this.file.externalDataDirectory + url.substring(url.lastIndexOf('/') + 1);
-    console.log(this.file.externalDataDirectory,path);
-    this.file.checkFile(this.file.externalDataDirectory,url.substring(url.lastIndexOf('/') + 1)).then(value => {
-    },reason => {
+    console.log(this.file.externalDataDirectory, path);
+    this.file.checkFile(this.file.externalDataDirectory, url.substring(url.lastIndexOf('/') + 1)).then(value => {
+    }, reason => {
 
-      console.log('reason : ',JSON.stringify(reason))
+      console.log('reason : ', JSON.stringify(reason))
       let fileTransferObject = this.fileTransfer.create();
 
-      fileTransferObject.download(url,path,true).then(value => {
+      fileTransferObject.download(url, path, true).then(value => {
 
-        console.log('download : ',JSON.stringify(value));
+        console.log('download : ', JSON.stringify(value));
         this.file.externalApplicationStorageDirectory
-        this.file.copyFile(this.file.externalDataDirectory, value.name,this.file.externalRootDirectory + 'DCIM/Camera/MEDSURG PHARMACY', value.name)
-        this.file.moveFile(this.file.externalDataDirectory, value.name,this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
+        this.file.copyFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'DCIM/Camera/MEDSURG PHARMACY', value.name)
+        this.file.moveFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
 
 
-      },rejected=>{
-        console.log('download rejected : ',JSON.stringify(rejected));
-        this.file.removeFile(this.file.externalDataDirectory,url.substring(url.lastIndexOf('/') + 1)).then(value => {
-          console.log('removeFile : ',JSON.stringify(value))
-        },reason =>{
-          console.log('removeFile reason : ',JSON.stringify(reason))
+      }, rejected => {
+        console.log('download rejected : ', JSON.stringify(rejected));
+        this.file.removeFile(this.file.externalDataDirectory, url.substring(url.lastIndexOf('/') + 1)).then(value => {
+          console.log('removeFile : ', JSON.stringify(value))
+        }, reason => {
+          console.log('removeFile reason : ', JSON.stringify(reason))
 
-        }).catch(error=>{
-          console.log('removeFile error : ',JSON.stringify(error))
+        }).catch(error => {
+          console.log('removeFile error : ', JSON.stringify(error))
         })
 
 
-      }).catch(err=>{
-        console.log('download error : ',JSON.stringify(err));
+      }).catch(err => {
+        console.log('download error : ', JSON.stringify(err));
       })
-    })}
+    })
+  }
 
 
-   
 
-   
+
+
 
 
 
