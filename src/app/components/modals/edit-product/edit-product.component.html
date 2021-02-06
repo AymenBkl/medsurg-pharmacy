@@ -33,7 +33,7 @@
         </div>
         <div class="name-holder">
           <ion-label class="display-name">
-            {{currentProduct.price}}₹
+            ₹{{currentProduct.price}}
           </ion-label>
         </div>
       </ion-col>
@@ -43,7 +43,7 @@
         <ion-label class="label-error" *ngIf="formErrors && formErrors.name">*{{formErrors.name}}</ion-label>
         <ion-item lines="none" class="ion-input">
           <ion-icon name="person-circle"></ion-icon>
-          <ion-input placeHolder="Medecin Price" formControlName="price"></ion-input>
+          <ion-input placeHolder="₹ Medecin Price" formControlName="price"></ion-input>
         </ion-item>
         <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
           <ion-label class="label">Medecin Name</ion-label>
