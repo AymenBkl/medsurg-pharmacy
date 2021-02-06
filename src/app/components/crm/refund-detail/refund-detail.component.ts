@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { ModalController, NavParams } from '@ionic/angular';
 import { ModalControllersOrders } from 'src/app/classes/modalController.orders';
 import { Order } from 'src/app/interfaces/order';
@@ -18,7 +20,9 @@ export class RefundDetailComponent implements OnInit {
   currentUser: User;
   constructor(private navParams: NavParams,
               private orderService: OrderService,
-              private interactionService: InteractionService) {
+              private interactionService: InteractionService,
+              private androidPermission: AndroidPermissions,
+              private callNumber: CallNumber) {
   }
 
   ngOnInit() {
@@ -56,6 +60,36 @@ export class RefundDetailComponent implements OnInit {
         this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
       })
   }
+
+  callPatient(phoneNumber: String) {
+    this.androidPermission.checkPermission(this.androidPermission.PERMISSION.CALL_PHONE)
+      .then((result) => {
+        if (result.hasPermission) {
+          this.callNumber.callNumber("+91" + phoneNumber, true)
+            .then(res => console.log('Launched dialer!', res))
+            .catch(err => console.log('Error launching dialer', err));
+        }
+        else {
+          console.log("request permission")
+          this.androidPermission.requestPermission(this.androidPermission.PERMISSION.CALL_PHONE)
+            .then((result) => {
+              if (result.hasPermission) {
+                this.callNumber.callNumber("+91" + phoneNumber, true)
+                  .then(res => console.log('Launched dialer!', res))
+                  .catch(err => console.log('Error launching dialer', err));
+              } else {
+              }
+            })
+            .catch(err => {
+              console.log("errPermission", JSON.stringify(err));
+            });
+        }
+      })
+      .catch(err => {
+        console.log("errPermission", JSON.stringify(err));
+      });
+  }
+
 
 
 }

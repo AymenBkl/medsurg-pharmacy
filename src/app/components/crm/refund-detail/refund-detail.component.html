@@ -31,6 +31,14 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="order.patient && order.patient.phoneNumber && order.status == 'accepted'" (click)="callPatient(order.patient.phoneNumber)">
+      <ion-col size="12">
+        <ion-icon name="call"></ion-icon>
+        <div  class="address">
+          {{order.patient.phoneNumber}}
+        </div>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col size="12">
         <ion-item  class="profile-holder" >
@@ -71,7 +79,7 @@
       <ion-col size="12">
         <ion-title class="title-patient">Refund Price</ion-title>
         <div  class="total-price-holder">
-          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.refund.refund.refundPrice}}
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : ₹{{order.refund.refund.refundPrice}}
         </div>
       </ion-col>
     </ion-row>

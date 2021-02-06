@@ -41,7 +41,7 @@
     <ion-row >
       <ion-col size="12">
         <ion-item  class="profile-holder" >
-        <ion-title class="title-patient">Payed By Admin {{order.payedByAdmin}}</ion-title>
+        <ion-title class="title-patient">Paid By Admin {{order.payedByAdmin}}</ion-title>
       </ion-item>
       </ion-col>
     </ion-row>
@@ -102,7 +102,7 @@
         Qauntity : {{product.quantity}}
       </div>
       <div class="product-nav">
-        <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{product.product.price}}
+        <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : ₹{{product.product.price}}
       </div>
     </div>
     </ion-col>
@@ -111,13 +111,13 @@
       <ion-col size="12" *ngIf="commission">
         <ion-title class="title-patient">Commission: {{commission.commission}}%</ion-title>
         <div  class="total-price-holder1">
-          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.totalPrice -  (order.totalPrice*commission.commission)/100 }}
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : ₹{{order.totalPrice -  (order.totalPrice*commission.commission)/100 }}
         </div>
       </ion-col>
       <ion-col size="12">
         <ion-title class="title-patient">Total Price</ion-title>
         <div  class="total-price-holder">
-          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : {{order.totalPrice}}
+          <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : ₹{{order.totalPrice}}
         </div>
       </ion-col>
     </ion-row>
