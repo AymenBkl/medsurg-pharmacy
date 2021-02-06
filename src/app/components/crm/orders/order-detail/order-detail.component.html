@@ -109,7 +109,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="12" *ngIf="commission">
-        <ion-title class="title-patient">Commission: {{commission.commission}}%</ion-title>
+        <ion-title class="title-patient">Earnings: {{commission.commission}}%</ion-title>
         <div  class="total-price-holder1">
           <ion-icon class="ion-icon" name="cash-outline"></ion-icon> : ₹{{order.totalPrice -  (order.totalPrice*commission.commission)/100 }}
         </div>
