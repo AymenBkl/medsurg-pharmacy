@@ -30,7 +30,7 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="order.patient && order.patient.phoneNumber && order.status == 'delivered'" (click)="callPatient(order.patient.phoneNumber)">
+    <ion-row *ngIf="order.patient && order.patient.phoneNumber && order.status == 'accepted'" (click)="callPatient(order.patient.phoneNumber)">
       <ion-col size="12">
         <ion-icon name="call"></ion-icon>
         <div  class="address">

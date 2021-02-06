@@ -146,24 +146,31 @@ export class PrescriptionComponent implements OnInit {
         if (result.hasPermission) {
           this.downloadViaURL(file);
         }
+
         else {
-          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,this.androidPermissions.PERMISSION.ACTION_INSTALL_PACKAGE])
+          console.log("request permission")
+          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE])
             .then((result) => {
               if (result.hasPermission) {
                 this.downloadViaURL(file);
               } else {
-              }});
+              }})
+              .catch(err => {
+                console.log("errPermission",JSON.stringify(err));
+              });
         }
-      });
+      })
+      .catch(err => {
+        console.log("errPermission",JSON.stringify(err));
+      });;
 
   }
 
   downloadViaURL(url){
-    console.log(url);
+
     let path = this.file.externalDataDirectory + url.substring(url.lastIndexOf('/') + 1);
     console.log(this.file.externalDataDirectory,path);
     this.file.checkFile(this.file.externalDataDirectory,url.substring(url.lastIndexOf('/') + 1)).then(value => {
-      console.log('is already downloaded');
     },reason => {
 
       console.log('reason : ',JSON.stringify(reason))
@@ -172,7 +179,9 @@ export class PrescriptionComponent implements OnInit {
       fileTransferObject.download(url,path,true).then(value => {
 
         console.log('download : ',JSON.stringify(value));
-        //this.moveToGallery(value)
+        this.file.externalApplicationStorageDirectory
+        this.file.copyFile(this.file.externalDataDirectory, value.name,this.file.externalRootDirectory + 'DCIM/Camera/MEDSURG PHARMACY', value.name)
+        this.file.moveFile(this.file.externalDataDirectory, value.name,this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
 
 
       },rejected=>{
@@ -191,6 +200,9 @@ export class PrescriptionComponent implements OnInit {
         console.log('download error : ',JSON.stringify(err));
       })
     })}
+
+
+   
 
    
 
