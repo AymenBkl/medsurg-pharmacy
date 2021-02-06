@@ -147,7 +147,6 @@ export class PrescriptionComponent implements OnInit {
           this.downloadViaURL(file);
         }
         else {
-          console.log("request permission")
           this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
             .then((result) => {
               console.log(result.hasPermission);
@@ -164,15 +163,6 @@ export class PrescriptionComponent implements OnInit {
       .catch(err => {
         console.log("errPermission", JSON.stringify(err));
       });;
-
-    this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
-      .then((result) => {
-        console.log(result.hasPermission);
-        if (result.hasPermission) {
-          this.downloadViaURL(file);
-        }
-      })
-
   }
 
   downloadViaURL(url) {

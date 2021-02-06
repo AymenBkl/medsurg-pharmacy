@@ -48,6 +48,16 @@ export class AddproductPage implements OnInit {
     this.buildReactiveForm();
 }
 
+ngAfterViewInit() {
+  setTimeout(
+    () => {
+      if (this.slides) {
+        this.slides.update();
+      }
+    }, 300
+  );
+}
+
 getCurrentRouter() {
   const mainProduct = JSON.parse(this.activeRouter.snapshot.paramMap.get('mainproduct'));
   if (mainProduct && mainProduct != null){

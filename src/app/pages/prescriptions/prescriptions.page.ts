@@ -43,6 +43,16 @@ export class PrescriptionsPage implements OnInit {
     
   }
 
+  ngAfterViewInit() {
+    setTimeout(
+      () => {
+        if (this.slides) {
+          this.slides.update();
+        }
+      }, 300
+    );
+  }
+
   getCurrentUser() {
     this.currentUser = this.authService.user;
     this.buildPrescription();
