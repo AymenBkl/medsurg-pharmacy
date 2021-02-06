@@ -9,6 +9,7 @@ import { AuthResponse } from '../interfaces/response';
 import { catchError } from 'rxjs/operators';
 import { PaymentDetail } from '../interfaces/paymentDetail';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,12 @@ export class AuthService {
   constructor(private httpClient: HttpClient,
     private storageService: StorageService,
     private httpErrorHandler: ProccessHttpErrosService,
-    private angularFireAuth: AngularFireAuth,) {
+    private angularFireAuth: AngularFireAuth,
+    private firebaseAuthentication: FirebaseAuthentication,) {
+      this.firebaseAuthentication.onAuthStateChanged() 
+                  .subscribe((data) => {
+                    console.log(data);
+                  })
   }
 
   checkJWT() {

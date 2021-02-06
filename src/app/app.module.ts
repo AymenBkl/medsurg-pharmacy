@@ -35,6 +35,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -61,6 +62,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     ProductService,
     FileChooser,
     File,
+    FirebaseAuthentication,
     MessageService,
     OrderService,
     PrescriptionService,

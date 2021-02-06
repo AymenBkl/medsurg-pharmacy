@@ -10,7 +10,6 @@ import { get } from '@ionic-native/core/decorators/common';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { HTTP } from '@ionic-native/http/ngx';
 
 @Component({
   selector: 'app-prescription',
@@ -39,8 +38,7 @@ export class PrescriptionComponent implements OnInit {
     private base64ToGallery: Base64ToGallery,
     private androidPermissions: AndroidPermissions,
     private file: File,
-    private fileTransfer: FileTransfer,
-    private nativeHTTP:HTTP) {
+    private fileTransfer: FileTransfer) {
     this.modalControllers = new ModalControllers(modalCntrl);
   }
 
@@ -126,7 +124,7 @@ export class PrescriptionComponent implements OnInit {
         text: 'Save',
         icon: 'cloud-download-outline',
         handler: () => {
-          this.downloadFile(file);
+          this.downloadFile(file)
         }
       }, {
         text: 'Cancel',
@@ -146,13 +144,13 @@ export class PrescriptionComponent implements OnInit {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
       .then((result) => {
         if (result.hasPermission) {
-          this.downloadFileAndStore(file);
+          this.downloadViaURL(file);
         }
         else {
           this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,this.androidPermissions.PERMISSION.ACTION_INSTALL_PACKAGE])
             .then((result) => {
               if (result.hasPermission) {
-                this.downloadFileAndStore(file);
+                this.downloadViaURL(file);
               } else {
               }});
         }
@@ -160,22 +158,39 @@ export class PrescriptionComponent implements OnInit {
 
   }
 
+  downloadViaURL(url){
+    console.log(url);
+    let path = this.file.externalDataDirectory + url.substring(url.lastIndexOf('/') + 1);
+    console.log(this.file.externalDataDirectory,path);
+    this.file.checkFile(this.file.externalDataDirectory,url.substring(url.lastIndexOf('/') + 1)).then(value => {
+      console.log('is already downloaded');
+    },reason => {
 
-    private downloadFileAndStore(url: string) {
-    
-      const filePath = this.file.dataDirectory + url.split('/')[3]; 
-                       // for iOS use this.file.documentsDirectory
-      
-      this.nativeHTTP.downloadFile(url, {}, {}, filePath).then(response => {
-         // prints 200
-         console.log('success block...', response);
-      }).catch(err => {
-          // prints 403
-          console.log('error block ... ', err.status);
-          // prints Permission denied
-          console.log('error block ... ', err.error);
+      console.log('reason : ',JSON.stringify(reason))
+      let fileTransferObject = this.fileTransfer.create();
+
+      fileTransferObject.download(url,path,true).then(value => {
+
+        console.log('download : ',JSON.stringify(value));
+        //this.moveToGallery(value)
+
+
+      },rejected=>{
+        console.log('download rejected : ',JSON.stringify(rejected));
+        this.file.removeFile(this.file.externalDataDirectory,url.substring(url.lastIndexOf('/') + 1)).then(value => {
+          console.log('removeFile : ',JSON.stringify(value))
+        },reason =>{
+          console.log('removeFile reason : ',JSON.stringify(reason))
+
+        }).catch(error=>{
+          console.log('removeFile error : ',JSON.stringify(error))
+        })
+
+
+      }).catch(err=>{
+        console.log('download error : ',JSON.stringify(err));
       })
-   }
+    })}
 
    
 

@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { User } from './interfaces/user';
 import { Router } from '@angular/router';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { AndroidPermissions,AndroidPermissionResponse } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-root',
@@ -92,6 +92,7 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      this.checkPermissions();
       this.splashScreen.hide();
     });
   }
@@ -137,12 +138,12 @@ export class AppComponent implements OnInit {
           console.log('permision granted');
         }
         else {
-          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE]);
+          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
         }
       });
     this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
       this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
-      this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE]);
+      this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
 
   }
 }
