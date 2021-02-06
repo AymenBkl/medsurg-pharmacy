@@ -2,61 +2,67 @@
 
 <ion-content>
   <app-edit-product [mainProduct]='selectedProduct' [user]="user" [currentProduct]="currentProduct" [type]="'addproduct'" *ngIf="user && currentProduct != null && currentSlide == 0"></app-edit-product>
-
-  <ion-slides class="center-row"  [options]='slideOpts' *ngIf='user && (currentProduct == null || currentSlide != 0) ' #slides class="swiper-no-swiping slides" >
-    <ion-slide class="slide intro-slide" >
-       <ion-label class="intro">Adding Medecins Will help you geting noticed</ion-label>
-       <ion-button class="buttons" (click)='start()'>
-         <ion-label>Start</ion-label>
-       </ion-button>
-    </ion-slide>
-    <ion-slide class="slide">
-      <form novalidate  [formGroup]="productForm"  class="form" (ngSubmit)="addProduct()" data-aos="fade-up">
-        <ion-title class="intro"*ngIf="selectedProduct">You are selecting {{selectedProduct.name}}</ion-title>
-        <ion-item lines="none" class="ion-input">
-          <ion-icon src="../../../assets/imgs/capsules.svg"></ion-icon>
-          <ion-input type="number" placeHolder="Medecin Price ₹" formControlName="price"></ion-input>
-
-        </ion-item>
-        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
-          <ion-label class="label">Medecin Name</ion-label>
-          <ion-input [disabled]="true" [value]="selectedProduct.name"></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
-          <ion-label class="label">Medecin IGST</ion-label>
-          <ion-input [disabled]="true" [value]="selectedProduct.igst"></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
-          <ion-label class="label">Medecin SGST</ion-label>
-          <ion-input [disabled]="true" [value]="selectedProduct.sgst"></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
-          <ion-label class="label">Medecin PACKING</ion-label>
-          <ion-input [disabled]="true" [value]="selectedProduct.packing"></ion-input>
-        </ion-item>
-        <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
-          <ion-label class="label">Medecin COMPANY</ion-label>
-          <ion-input [disabled]="true" [value]="selectedProduct.company_name"></ion-input>
-        </ion-item>
-        <ion-button class="buttons" [disabled]="productForm.invalid || submitted" (click)="addProduct()" shape="round" size="default" expand="full" *ngIf="currentProduct == null">
-          <ion-label *ngIf="!submitted">Apend Medecin</ion-label>
-          <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
-        </ion-button>
-      </form>
-     </ion-slide>
-    <ion-slide class="slide intro-slide">
-     <ion-label class="intro ">Choose an image</ion-label>
-     <ion-avatar class="avatar">
-      <img *ngIf="!currentProduct || currentProduct.imageUrl == '' " src="../../../assets/imgs/medicine.png">
-      <img *ngIf="currentProduct && currentProduct.imageUrl != ''" [src]="currentProduct.imageUrl">
-       <div class="rounded-input" >
-        <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
-        <input id="files" type="file" style="visibility:hidden;"  (change)="selectedImage($event)" >
-      </div>
-     </ion-avatar>
-    </ion-slide>
+  <ion-grid>
+    <ion-row class="ion-align-items-center" >
+      <ion-col size="12" size-md="8" offset-md="2">
+        <ion-slides class="center-row"  [options]='slideOpts' *ngIf='user && (currentProduct == null || currentSlide != 0) ' #slides class="swiper-no-swiping slides" >
+          <ion-slide class="slide intro-slide" >
+             <ion-label class="intro">Adding Medecins Will help you geting noticed</ion-label>
+             <ion-button class="buttons" (click)='start()'>
+               <ion-label>Start</ion-label>
+             </ion-button>
+          </ion-slide>
+          <ion-slide class="slide">
+            <form novalidate  [formGroup]="productForm"  class="form" (ngSubmit)="addProduct()" data-aos="fade-up">
+              <ion-title class="intro"*ngIf="selectedProduct">You are selecting {{selectedProduct.name}}</ion-title>
+              <ion-item lines="none" class="ion-input">
+                <ion-icon src="../../../assets/imgs/capsules.svg"></ion-icon>
+                <ion-input type="number" placeHolder="Medecin Price ₹" formControlName="price"></ion-input>
+      
+              </ion-item>
+              <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+                <ion-label class="label">Medecin Name</ion-label>
+                <ion-input [disabled]="true" [value]="selectedProduct.name"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+                <ion-label class="label">Medecin IGST</ion-label>
+                <ion-input [disabled]="true" [value]="selectedProduct.igst"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+                <ion-label class="label">Medecin SGST</ion-label>
+                <ion-input [disabled]="true" [value]="selectedProduct.sgst"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+                <ion-label class="label">Medecin PACKING</ion-label>
+                <ion-input [disabled]="true" [value]="selectedProduct.packing"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="ion-input" data-aos="fade-up" data-aos-duration="3000">
+                <ion-label class="label">Medecin COMPANY</ion-label>
+                <ion-input [disabled]="true" [value]="selectedProduct.company_name"></ion-input>
+              </ion-item>
+              <ion-button class="buttons" [disabled]="productForm.invalid || submitted" (click)="addProduct()" shape="round" size="default" expand="full" *ngIf="currentProduct == null">
+                <ion-label *ngIf="!submitted">Apend Medecin</ion-label>
+                <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
+              </ion-button>
+            </form>
+           </ion-slide>
+          <ion-slide class="slide intro-slide">
+           <ion-label class="intro ">Choose an image</ion-label>
+           <ion-avatar class="avatar">
+            <img *ngIf="!currentProduct || currentProduct.imageUrl == '' " src="../../../assets/imgs/medicine.png">
+            <img *ngIf="currentProduct && currentProduct.imageUrl != ''" [src]="currentProduct.imageUrl">
+             <div class="rounded-input" >
+              <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
+              <input id="files" type="file" style="visibility:hidden;"  (change)="selectedImage($event)" >
+            </div>
+           </ion-avatar>
+          </ion-slide>
+        
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-  </ion-slides>
   <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="(currentSlide == 1 && currentProduct != null)">
     <ion-fab-button (click)="next()">
       <ion-icon name="arrow-forward-outline"></ion-icon>

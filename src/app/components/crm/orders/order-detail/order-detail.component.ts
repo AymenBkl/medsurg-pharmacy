@@ -134,7 +134,6 @@ export class OrderDetailComponent implements OnInit {
             .catch(err => console.log('Error launching dialer', err));
         }
         else {
-          console.log("request permission")
           this.androidPermission.requestPermission(this.androidPermission.PERMISSION.CALL_PHONE)
             .then((result) => {
               if (result.hasPermission) {
@@ -142,15 +141,18 @@ export class OrderDetailComponent implements OnInit {
                   .then(res => console.log('Launched dialer!', res))
                   .catch(err => console.log('Error launching dialer', err));
               } else {
+                this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
               }
             })
             .catch(err => {
-              console.log("errPermission", JSON.stringify(err));
+              this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
             });
         }
       })
       .catch(err => {
-        console.log("errPermission", JSON.stringify(err));
+        this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
       });
   }
 

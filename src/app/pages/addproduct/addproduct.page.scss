@@ -77,6 +77,11 @@
 }
 
 .slides {
+    display: inline-block;
+    width: 100%;
+}
+
+.form {
     width: 100%;
 }
 
@@ -89,7 +94,7 @@
 }
 
 .intro-slide {
-    display: block;
+    display: inline-block;
 }
 
 .ion-select {

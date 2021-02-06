@@ -9,6 +9,7 @@ import { AuthResponse } from '../interfaces/response';
 import { catchError } from 'rxjs/operators';
 import { PaymentDetail } from '../interfaces/paymentDetail';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,12 @@ export class AuthService {
   constructor(private httpClient: HttpClient,
     private storageService: StorageService,
     private httpErrorHandler: ProccessHttpErrosService,
-    private angularFireAuth: AngularFireAuth,) {
-     
+    private angularFireAuth: AngularFireAuth,
+    private firebaseAuthentication: FirebaseAuthentication) {
+      this.firebaseAuthentication.onAuthStateChanged()
+                  .subscribe((user) => {
+                    
+                  })
   }
 
   checkJWT() {
@@ -84,7 +89,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       console.log(phone)
       
-      this.angularFireAuth.signInWithPhoneNumber('+213770979283', recaptha)
+      this.angularFireAuth.signInWithPhoneNumber('+91' + phone, recaptha)
       .then(result => {
         console.log("result",result);
         resolve(result);

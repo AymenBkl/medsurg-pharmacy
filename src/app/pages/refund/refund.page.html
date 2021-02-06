@@ -61,8 +61,8 @@
             <div class="inner-container" >
             <ion-label class="inner-item" style="font-weight: bold;"><ion-icon class="ion-icon" name="card-outline" ></ion-icon> : PAID</ion-label> 
 
-            <ion-label   class="inner-item" style="font-weight: bold;color:green">Order Status : DELIVERED</ion-label>
-          </div>
+            <ion-label   class="inner-item" style="font-weight: bold;color:green" *ngIf="refund.order.status == 'delivered'">Order Status : DELIVERED</ion-label>
+            <ion-label   class="inner-item" style="font-weight: bold;color:red" *ngIf="refund.order.status == 'canceled'">Order Status : CANCELED</ion-label>          </div>
         </div>
       </div>
   

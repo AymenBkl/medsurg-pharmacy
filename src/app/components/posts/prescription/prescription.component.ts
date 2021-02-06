@@ -153,15 +153,18 @@ export class PrescriptionComponent implements OnInit {
               if (result.hasPermission) {
                 this.downloadViaURL(file);
               } else {
+                this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
               }
             })
             .catch(err => {
-              console.log("errPermission", JSON.stringify(err));
+              this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
             });
         }
       })
       .catch(err => {
-        console.log("errPermission", JSON.stringify(err));
+        this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
       });;
   }
 

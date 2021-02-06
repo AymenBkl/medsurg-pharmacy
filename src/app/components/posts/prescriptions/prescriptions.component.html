@@ -6,8 +6,8 @@
     <ion-slide *ngFor="let prescription of prescriptions" (click)="callPrescriptionPage(prescription)" >
       <!-- For Real Products -->
       <ion-card  class="card no-padding">
-        <img *ngIf="prescription && prescription.patient.imageUrl != ''" [src]="prescription.patient.imageUrl"  />
-        <img *ngIf="!prescription || prescription.patient.imageUrl == ''" src="../../../../assets/imgs/medical-prescription.png"  /> 
+        <img *ngIf="prescription && prescription.imageUrl.length > 0 && prescription.imageUrl[0] != ''" [src]="prescription.imageUrl[0]"  />
+        <img *ngIf="!prescription || prescription.imageUrl.length == 0" src="../../../../assets/imgs/medical-prescription.png"  /> 
         
       </ion-card>
       <div class="text-content">

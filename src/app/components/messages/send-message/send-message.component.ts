@@ -26,7 +26,7 @@ export class SendMessageComponent implements OnInit {
     this.currentUser = this.navParam.get('user');
     this.message = {
       message: '',
-      to : "6016d2c89038d7598d6bf12f",
+      to : "601edaae66bb43050256853b",
       from : this.currentUser,
     };
   }

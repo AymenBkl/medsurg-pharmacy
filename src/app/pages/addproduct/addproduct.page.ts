@@ -54,9 +54,21 @@ ngAfterViewInit() {
       if (this.slides) {
         this.slides.update();
       }
-    }, 300
+    }, 1000
   );
 }
+
+ionViewDidEnter() {
+  setTimeout(
+    () => {
+      if (this.slides) {
+        this.slides.update();
+      }
+    }, 1000
+  );
+}
+
+
 
 getCurrentRouter() {
   const mainProduct = JSON.parse(this.activeRouter.snapshot.paramMap.get('mainproduct'));
