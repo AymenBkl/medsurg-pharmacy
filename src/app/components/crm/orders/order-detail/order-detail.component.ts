@@ -6,6 +6,8 @@ import { Order } from 'src/app/interfaces/order';
 import { User } from 'src/app/interfaces/user';
 import { OrderService } from 'src/app/services/crm/order.service';
 import { InteractionService } from 'src/app/services/interaction.service';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-order-detail',
@@ -20,11 +22,13 @@ export class OrderDetailComponent implements OnInit {
   modalControllerOder: ModalControllersOrders;
   commission: Commission;
   constructor(private navParams: NavParams,
-              private modalCntrl: ModalController,
-              private orderService: OrderService,
-              private interactionService: InteractionService) {
-                this.modalControllerOder = new ModalControllersOrders(modalCntrl);
-              }
+    private modalCntrl: ModalController,
+    private orderService: OrderService,
+    private interactionService: InteractionService,
+    private callNumber: CallNumber,
+    private androidPermission: AndroidPermissions) {
+    this.modalControllerOder = new ModalControllersOrders(modalCntrl);
+  }
 
   ngOnInit() {
   }
@@ -33,7 +37,7 @@ export class OrderDetailComponent implements OnInit {
     this.order = this.navParams.get('order');
     this.currentUser = this.navParams.get('user');
     console.log(this.order);
-    if (this.order.refund && this.order.refund.refund){
+    if (this.order.refund && this.order.refund.refund) {
       this.order.totalPrice -= this.order.refund.refund.refundPrice;
     }
   }
@@ -42,29 +46,29 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getProductNames() {
-    var productNames : string[] = [];
+    var productNames: string[] = [];
     this.order.products.map(product => {
       productNames.push(product.product.mainProduct.name + '\n');
     })
     return productNames;
   }
 
-  statusChanged(event){
+  statusChanged(event) {
     this.orderStatus = event.detail.value;
   }
 
 
-  updateOrder(){
+  updateOrder() {
     this.interactionService.createLoading('Updating your order status ! Please Wait')
       .then(() => {
-        this.orderService.editOrder(this.order._id,this.orderStatus)
+        this.orderService.editOrder(this.order._id, this.orderStatus)
           .then((result: any) => {
             this.interactionService.hide();
-            if (result && result != false){
+            if (result && result != false) {
               this.interactionService.createToast('Your Order Has been Updated !', 'success', 'bottom');
               setTimeout(() => {
                 this.modalCntrl.dismiss(null);
-              },1500);
+              }, 1500);
             }
             else {
               this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
@@ -76,39 +80,39 @@ export class OrderDetailComponent implements OnInit {
       })
   }
 
-  checkStatus(){
-    if (this.order.status == 'accepted'){
+  checkStatus() {
+    if (this.order.status == 'accepted') {
       this.orderStatus = "delivered";
       this.updateOrder();
     }
-    else if (this.order.status == 'created'){
+    else if (this.order.status == 'created') {
       this.updateOrder();
     }
-    else if (this.order.status == 'rejected' || this.order.status == 'rejected' || this.order.status == 'rejected' ){
+    else if (this.order.status == 'rejected' || this.order.status == 'rejected' || this.order.status == 'rejected') {
 
     }
   }
 
-  callRefundDetail(){
-    this.modalControllerOder.callRefundDetail(this.currentUser,this.order);
+  callRefundDetail() {
+    this.modalControllerOder.callRefundDetail(this.currentUser, this.order);
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getPayPharmacyCommission();
     this.getData();
   }
 
-  getPayPharmacyCommission(){
+  getPayPharmacyCommission() {
     this.orderService.getCommision()
-      .then((result:Commission[]) => {
-        this.commission = result.filter(commission => {return commission.name == 'Pay Pharmacy'})[0];
+      .then((result: Commission[]) => {
+        this.commission = result.filter(commission => { return commission.name == 'Pay Pharmacy' })[0];
       })
   }
 
-  pickUp(){
-    this.orderService.payPickUp(this.order._id,this.order.refund.refund._id)
+  pickUp() {
+    this.orderService.payPickUp(this.order._id, this.order.refund.refund._id)
       .then((result) => {
-        if (result && result != false){
+        if (result && result != false) {
           this.interactionService.createToast('Your Order Has been Updated !', 'success', 'bottom');
         }
         else {
@@ -119,11 +123,34 @@ export class OrderDetailComponent implements OnInit {
         this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
       })
   }
-  
+
+
+  callPatient(phoneNumber: String) {
+    this.androidPermission.checkPermission(this.androidPermission.PERMISSION.CALL_PHONE)
+      .then((result) => {
+        if (result.hasPermission) {
+          this.callNumber.callNumber("+91" + phoneNumber, true)
+            .then(res => console.log('Launched dialer!', res))
+            .catch(err => console.log('Error launching dialer', err));
+        }
+        else {
+          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.CALL_PHONE])
+            .then((result) => {
+              if (result.hasPermission) {
+                this.callNumber.callNumber("+91" + phoneNumber, true)
+                  .then(res => console.log('Launched dialer!', res))
+                  .catch(err => console.log('Error launching dialer', err));
+              } else {
+              }
+            });
+        }
+      });
+  }
 
 
 
-  
+
+
 
 }
 

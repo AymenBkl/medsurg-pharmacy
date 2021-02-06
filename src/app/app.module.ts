@@ -36,6 +36,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -70,6 +71,7 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
     Base64ToGallery,
     AndroidPermissions,
     FileTransfer,
+    CallNumber,
     HTTP,
     {
       provide: HTTP_INTERCEPTORS,

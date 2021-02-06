@@ -144,6 +144,5 @@ export class AppComponent implements OnInit {
     this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
       this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
       this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
-
   }
 }
