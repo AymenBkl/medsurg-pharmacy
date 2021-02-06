@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { Comment } from 'src/app/interfaces/comment';
 import { Offer } from 'src/app/interfaces/offer';
 import { PrescriptionService } from 'src/app/services/prescription.service';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @Component({
   selector: 'app-prescription',
@@ -33,7 +34,8 @@ export class PrescriptionsPage implements OnInit {
   constructor(private authService: AuthService,
               private modalController: ModalController,
               private prescriptionService: PrescriptionService,
-              private interactionService: InteractionService) {
+              private interactionService: InteractionService,
+              private fileTransfer: FileTransfer) {
                 this.modalControllers = new ModalControllers(modalController);
               }
 

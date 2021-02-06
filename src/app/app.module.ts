@@ -33,6 +33,8 @@ import { PrescriptionService } from './services/prescription.service';
 import { CashfreeService } from './services/cashfree.service';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -64,6 +66,8 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
     PrescriptionService,
     CashfreeService,
     Base64ToGallery,
+    AndroidPermissions,
+    FileTransfer,
     HTTP,
     {
       provide: HTTP_INTERCEPTORS,

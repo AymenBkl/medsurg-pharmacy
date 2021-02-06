@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { User } from './interfaces/user';
 import { Router } from '@angular/router';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -82,6 +84,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
+    private androidPermission: AndroidPermissions
   ) {
     this.initializeApp();
   }
@@ -125,5 +128,21 @@ export class AppComponent implements OnInit {
       }).catch(() => {
         this.router.navigate(['/login']);
       });
+  }
+
+  checkPermissions() {
+    this.androidPermission.checkPermission(this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE)
+      .then((result) => {
+        if (result.hasPermission) {
+          console.log('permision granted');
+        }
+        else {
+          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE]);
+        }
+      });
+    this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
+      this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
+      this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE]);
+
   }
 }
