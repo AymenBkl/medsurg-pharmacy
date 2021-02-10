@@ -26,15 +26,20 @@
           </ion-text>
         </ion-item>
         <ion-slides [options]='slideOpts' #slides pager >
-          <ion-slide  *ngFor="let image of images">
-            <ion-icon name="cloud-download-outline" (click)="presentActionSheet(image.url)" class="icon-download"></ion-icon>
-            <ion-item line="none" class="prescription-holder">
+          <ion-slide  *ngFor="let image of images" class="slide">
+            <ion-item lines="none" class="prescription-holder image">
               <img [src]="image.url">
+            </ion-item>
+            <ion-item lines="none" class="prescription-holder download">
+              <ion-button expand='full' (click)="presentActionSheet(image.url)" class="button-download">
+                <ion-icon name="cloud-download-outlines"></ion-icon>
+                <ion-text> Download</ion-text>
+              </ion-button>
             </ion-item>
           </ion-slide>
         </ion-slides>
-        <ion-item line="none" class="prescription-holder">
-          <img *ngIf="prescription.imageUrl.length == 0" src="../../../assets/imgs/photo.png">
+        <ion-item lines="none" class="prescription-holder" *ngIf="prescription.imageUrl.length == 0 && images.length == 0" >
+          <img src="../../../assets/imgs/photo.png">
         </ion-item>
         <ion-item lines="none" class="comment-holder">
           <div class="comment-holder">

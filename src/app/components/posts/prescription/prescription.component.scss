@@ -47,14 +47,26 @@
     font-size: 13px;
 }
 
-.icon-download{
-    position: absolute;
-    top:3px;
-    right: 19px;
-    z-index: 1111;
-    font-size: 25px;
-    color:black;
+.slide{
+    display: block;
 }
+
+.button-download{
+    font-size: 25px;
+    color:white;
+    margin: 0 auto;
+    --background:#2B91BF;
+    
+}
+
+.image{
+    height: 500px;
+}
+
+.download {
+    padding: 20px;
+}
+
 
 .prescription-holder {
     display: block;
