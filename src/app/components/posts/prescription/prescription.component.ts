@@ -10,6 +10,7 @@ import { get } from '@ionic-native/core/decorators/common';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @Component({
   selector: 'app-prescription',
@@ -36,9 +37,10 @@ export class PrescriptionComponent implements OnInit {
     private modalCntrl: ModalController,
     private actionSheetController: ActionSheetController,
     private base64ToGallery: Base64ToGallery,
+    private base64: Base64,
     private androidPermissions: AndroidPermissions,
     private file: File,
-    private fileTransfer: FileTransfer) {
+    private fileTransfer: FileTransfer,) {
     this.modalControllers = new ModalControllers(modalCntrl);
   }
 
@@ -181,9 +183,8 @@ export class PrescriptionComponent implements OnInit {
       fileTransferObject.download(url, path, true).then(value => {
 
         console.log('download : ', JSON.stringify(value));
-        this.file.externalApplicationStorageDirectory
-        this.file.copyFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'DCIM/Camera/MEDSURG PHARMACY', value.name)
-        this.file.moveFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
+        console.log(value.nativeURL);
+        this.imageToBase64(value.nativeURL);
 
 
       }, rejected => {
@@ -202,6 +203,23 @@ export class PrescriptionComponent implements OnInit {
         console.log('download error : ', JSON.stringify(err));
       })
     })
+  }
+
+
+  imageToBase64(filePath: string) {
+    this.base64.encodeFile(filePath).then((base64File: string) => {
+      console.log("base64",base64File);
+      this.saveImageToGallery(base64File)
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  saveImageToGallery(base64Data){
+    this.base64ToGallery.base64ToGallery(base64Data, { prefix: '_img',mediaScanner:true}).then(
+      res => console.log('Saved image to gallery ', res),
+      err => console.log('Error saving image to gallery ', err)
+    );
   }
 
 

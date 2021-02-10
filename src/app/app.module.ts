@@ -37,6 +37,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -69,6 +70,7 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
     PrescriptionService,
     CashfreeService,
     Base64ToGallery,
+    Base64,
     AndroidPermissions,
     FileTransfer,
     CallNumber,
