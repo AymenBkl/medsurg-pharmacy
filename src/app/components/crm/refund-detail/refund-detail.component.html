@@ -50,11 +50,11 @@
       <ion-title class="title-patient">Medecins</ion-title>
       <ion-col size="12" *ngFor="let product of order.products" >
       <div  class="product-holder" *ngIf="product.refundedQuantity > 0" >
-        <ion-avatar class="product-img" *ngIf="product.refundedQuantity > 0">
+        <ion-avatar class="product-img" *ngIf="product.refundedQuantity > 0 && product.product.mainProduct">
           <img *ngIf="!product.product.imageUrl || product.product.imageUrl == ''" src="../../../assets/imgs/capsules.svg">
           <img *ngIf="product.product.imageUrl && product.product.imageUrl != ''" [src]="product.product.imageUrl">
         </ion-avatar>
-        <div class="holder" *ngIf="product.refundedQuantity > 0">
+        <div class="holder" *ngIf="product.refundedQuantity > 0 && product.product.mainProduct">
         <ion-title class="product-title">
           {{product.product.mainProduct.name}}
         </ion-title>
@@ -84,7 +84,7 @@
       </ion-col>
     </ion-row>
     <ion-row class="bottom-row">
-      <ion-col size="12" *ngIf="order.refund.refund && order.refund.payedByAdmin != 'PICKUP' ">
+      <ion-col size="12" *ngIf="order.refund.refund && order.refund.payedByAdmin == 'NOT PAIED' ">
         <ion-button shape="round" size="default" color="light"  expand="full" (click)="pickUp()">
           <ion-text>PICK UP REFUND</ion-text>
         </ion-button>
