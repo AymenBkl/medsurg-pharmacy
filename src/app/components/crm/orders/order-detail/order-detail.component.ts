@@ -125,7 +125,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
 
-  callPatient(phoneNumber: String) {
+  callPatient(phoneNumber) {
     this.androidPermission.checkPermission(this.androidPermission.PERMISSION.CALL_PHONE)
       .then((result) => {
         if (result.hasPermission) {
