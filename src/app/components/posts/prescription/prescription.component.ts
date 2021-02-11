@@ -92,7 +92,7 @@ export class PrescriptionComponent implements OnInit {
       status: 'created',
       products: []
     });
-    delete this.commentToAdd._id;
+    delete this.commentToAdd._id; 
   }
 
   addComent(prescriptionId: string) {
@@ -217,7 +217,7 @@ export class PrescriptionComponent implements OnInit {
   }
 
   saveImageToGallery(base64Data){
-    this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'img_',mediaScanner: false}).then(
+    this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'pharmacy_',mediaScanner: false}).then(
       res => console.log('Saved image to gallery ', res),
       err => console.log('Error saving image to gallery ', err)
     );
