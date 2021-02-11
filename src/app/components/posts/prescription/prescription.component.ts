@@ -150,7 +150,7 @@ export class PrescriptionComponent implements OnInit {
           this.downloadViaURL(file);
         }
         else {
-          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,this.androidPermissions.PERMISSION.CAMERA])
             .then((result) => {
               console.log(result.hasPermission);
               if (result.hasPermission) {
@@ -208,44 +208,16 @@ export class PrescriptionComponent implements OnInit {
 
 
   imageToBase64(filePath: string) {
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA)
-      .then((result) => {
-        if (result.hasPermission) {
-          this.base64.encodeFile(filePath).then((base64File: string) => {
-            console.log("base64",base64File);
-            this.saveImageToGallery(base64File.split(',')[1])
-          }, (err) => {
-            console.log(err);
-          });        }
-        else {
-          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
-            .then((result) => {
-              console.log(result.hasPermission);
-              if (result.hasPermission) {
-                this.base64.encodeFile(filePath).then((base64File: string) => {
-                  console.log("base64",base64File);
-                  this.saveImageToGallery(base64File.split(',')[1])
-                }, (err) => {
-                  console.log(err);
-                });              } else {
-                this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
-              }
-            })
-            .catch(err => {
-              this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
-
-            });
-        }
-      })
-      .catch(err => {
-        this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
-
-      });;
-    
+    this.base64.encodeFile(filePath).then((base64File: string) => {
+      console.log("base64",base64File);
+      this.saveImageToGallery(base64File.split(',')[1])
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   saveImageToGallery(base64Data){
-    this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'img_',mediaScanner: true}).then(
+    this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'img_',mediaScanner: false}).then(
       res => console.log('Saved image to gallery ', res),
       err => console.log('Error saving image to gallery ', err)
     );

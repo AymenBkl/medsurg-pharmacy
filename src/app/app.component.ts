@@ -6,8 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { User } from './interfaces/user';
 import { Router } from '@angular/router';
-import { AndroidPermissions,AndroidPermissionResponse } from '@ionic-native/android-permissions/ngx';
-import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-root',
@@ -85,8 +83,6 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
-    private androidPermission: AndroidPermissions,
-    private file: File,
   ) {
     this.initializeApp();
   }
@@ -94,8 +90,6 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.checkPermissions();
-      this.createDirImages();
       this.splashScreen.hide();
     });
   }
@@ -134,49 +128,8 @@ export class AppComponent implements OnInit {
       });
   }
 
-  checkPermissions() {
-    this.androidPermission.checkPermission(this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE)
-      .then((result) => {
-        if (result.hasPermission) {
-          console.log('permision granted');
-        }
-        else {
-          this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
-        }
-      },err => {
-        console.log("permission not granted");
-        this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
-          this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
-          this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
-      });
-    this.androidPermission.requestPermissions([this.androidPermission.PERMISSION.READ_EXTERNAL_STORAGE,
-      this.androidPermission.PERMISSION.WRITE_EXTERNAL_STORAGEE,
-      this.androidPermission.PERMISSION.ACTION_INSTALL_PACKAGE,this.androidPermission.PERMISSION.CALL_PHONE]);
-  }
+  
 
 
-  createDirImages(){
-    if(this.platform.is('android')) {
-      this.file.checkDir(this.file.externalRootDirectory + 'DCIM/Camera/', 'MEDSURG PHARMACY').then(response => {
-        console.log('Directory exists'+response);
-      }).catch(err => {
-        console.log('Directory doesn\'t exist'+JSON.stringify(err));
-        this.file.createDir(this.file.externalRootDirectory + 'DCIM/Camera/', 'MEDSURG PHARMACY', false).then(response => {
-          console.log('Directory create'+response);
-        }).catch(err => {
-          console.log('Directory no create'+JSON.stringify(err));
-        }); 
-      });
-      this.file.checkDir(this.file.externalRootDirectory + 'Pictures/', 'MEDSURG PHARMACY').then(response => {
-        console.log('Directory exists'+response);
-      }).catch(err => {
-        console.log('Directory doesn\'t exist'+JSON.stringify(err));
-        this.file.createDir(this.file.externalRootDirectory + 'Pictures/', 'MEDSURG PHARMACY', false).then(response => {
-          console.log('Directory create'+response);
-        }).catch(err => {
-          console.log('Directory no create'+JSON.stringify(err));
-        }); 
-      });
-    }
-  }
+ 
 }
