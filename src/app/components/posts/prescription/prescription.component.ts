@@ -208,15 +208,15 @@ export class PrescriptionComponent implements OnInit {
 
   imageToBase64(filePath: string) {
     this.base64.encodeFile(filePath).then((base64File: string) => {
-      console.log("base64",base64File);
-      this.saveImageToGallery(base64File)
+      console.log("base64",base64File.split(',')[1]);
+      this.saveImageToGallery(base64File.split(',')[1])
     }, (err) => {
       console.log(err);
     });
   }
 
   saveImageToGallery(base64Data){
-    this.base64ToGallery.base64ToGallery(base64Data, { prefix: '_img',mediaScanner:true}).then(
+    this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'img_',mediaScanner: true}).then(
       res => console.log('Saved image to gallery ', res),
       err => console.log('Error saving image to gallery ', err)
     );
