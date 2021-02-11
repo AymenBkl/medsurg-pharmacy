@@ -11,7 +11,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
-
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx'
 @Component({
   selector: 'app-prescription',
   templateUrl: './prescription.component.html',
@@ -40,7 +40,8 @@ export class PrescriptionComponent implements OnInit {
     private base64: Base64,
     private androidPermissions: AndroidPermissions,
     private file: File,
-    private fileTransfer: FileTransfer,) {
+    private fileTransfer: FileTransfer,
+    private camera: Camera) {
     this.modalControllers = new ModalControllers(modalCntrl);
   }
 
@@ -207,12 +208,40 @@ export class PrescriptionComponent implements OnInit {
 
 
   imageToBase64(filePath: string) {
-    this.base64.encodeFile(filePath).then((base64File: string) => {
-      console.log("base64",base64File.split(',')[1]);
-      this.saveImageToGallery(base64File.split(',')[1])
-    }, (err) => {
-      console.log(err);
-    });
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA)
+      .then((result) => {
+        if (result.hasPermission) {
+          this.base64.encodeFile(filePath).then((base64File: string) => {
+            console.log("base64",base64File);
+            this.saveImageToGallery(base64File.split(',')[1])
+          }, (err) => {
+            console.log(err);
+          });        }
+        else {
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+            .then((result) => {
+              console.log(result.hasPermission);
+              if (result.hasPermission) {
+                this.base64.encodeFile(filePath).then((base64File: string) => {
+                  console.log("base64",base64File);
+                  this.saveImageToGallery(base64File.split(',')[1])
+                }, (err) => {
+                  console.log(err);
+                });              } else {
+                this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+              }
+            })
+            .catch(err => {
+              this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
+            });
+        }
+      })
+      .catch(err => {
+        this.interactionService.createToast('You didnt grant the permission!', 'warrning', 'bottom');
+
+      });;
+    
   }
 
   saveImageToGallery(base64Data){

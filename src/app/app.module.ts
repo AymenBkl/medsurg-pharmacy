@@ -38,7 +38,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
-
+import { Camera } from '@ionic-native/camera/ngx'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -71,6 +71,7 @@ import { Base64 } from '@ionic-native/base64/ngx';
     CashfreeService,
     Base64ToGallery,
     Base64,
+    Camera,
     AndroidPermissions,
     FileTransfer,
     CallNumber,

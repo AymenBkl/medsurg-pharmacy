@@ -49,13 +49,17 @@ export class LoginPage implements OnInit {
         console.log(result);
         if (result && result !== false){
           this.interactionService.createToast('WELCOM', 'success', 'bottom');
-          console.log(result);
+          if (result.role === 'pharmacy') {
           if (result.emailVerified === false || result.emailVerified == null){
             this.goToHome();
           }
           else {
             this.goToHome();
           }
+        }
+        else {
+          this.toastAlert();
+        }
         }
         else {
           this.interactionService.createToast('Something Went Wrong ! Try Again', 'danger', 'bottom');
@@ -96,6 +100,11 @@ export class LoginPage implements OnInit {
 
   ionViewDidEnter() {
     this.submitted = false;
+  }
+
+  toastAlert() {
+    this.submitted = false;
+    this.interactionService.createToast('You are not allowed', 'danger', 'bottom');
   }
 
   async resetPassword() {
