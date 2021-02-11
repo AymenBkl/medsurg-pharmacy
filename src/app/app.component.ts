@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { User } from './interfaces/user';
 import { Router } from '@angular/router';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-root',
@@ -83,6 +84,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
+    private file: File
   ) {
     this.initializeApp();
   }
@@ -98,6 +100,7 @@ export class AppComponent implements OnInit {
     this.authService.checkJWT();
     this.menuItems();
     this.getCurrentUser();
+    this.createDirImages();
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
@@ -126,6 +129,32 @@ export class AppComponent implements OnInit {
       }).catch(() => {
         this.router.navigate(['/login']);
       });
+  }
+
+
+  createDirImages(){
+    if(this.platform.is('android')) {
+      this.file.checkDir(this.file.externalRootDirectory + 'DCIM/', 'MEDSURG PHARMACY').then(response => {
+        console.log('Directory exists'+response);
+      }).catch(err => {
+        console.log('Directory doesn\'t exist'+JSON.stringify(err));
+        this.file.createDir(this.file.externalRootDirectory + 'DCIM/', 'MEDSURG PHARMACY', false).then(response => {
+          console.log('Directory create'+response);
+        }).catch(err => {
+          console.log('Directory no create'+JSON.stringify(err));
+        }); 
+      });
+      this.file.checkDir(this.file.externalRootDirectory + 'Pictures/', 'MEDSURG PHARMACY').then(response => {
+        console.log('Directory exists'+response);
+      }).catch(err => {
+        console.log('Directory doesn\'t exist'+JSON.stringify(err));
+        this.file.createDir(this.file.externalRootDirectory + 'Pictures/', 'MEDSURG PHARMACY', false).then(response => {
+          console.log('Directory create'+response);
+        }).catch(err => {
+          console.log('Directory no create'+JSON.stringify(err));
+        }); 
+      });
+    }
   }
 
   

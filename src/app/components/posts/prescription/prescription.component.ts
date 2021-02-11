@@ -186,6 +186,9 @@ export class PrescriptionComponent implements OnInit {
         console.log('download : ', JSON.stringify(value));
         console.log(value.nativeURL);
         this.imageToBase64(value.nativeURL);
+        this.file.copyFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'DCIM/MEDSURG PHARMACY', value.name)
+        this.file.moveFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
+
 
 
       }, rejected => {
