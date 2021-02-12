@@ -54,8 +54,12 @@ export class AddProductToCommentComponent implements OnInit {
             this.searchProduct = this.mainProducts;
             this.watchResolution(false);
             this.intercationService.hide();
-          });
-      });
+          })
+          .catch(err => {
+            this.interactionService.hide();
+          });;;
+      })
+      
   }
 
   async removeNullMainProduct(){

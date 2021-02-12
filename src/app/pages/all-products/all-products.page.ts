@@ -7,6 +7,7 @@ import { Comment } from 'src/app/interfaces/comment';
 import { MainProduct } from 'src/app/interfaces/mainProduct';
 import { Product } from 'src/app/interfaces/product';
 import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { AllproductsService } from 'src/app/services/crm/allproducts.service';
 import { CategoryService } from 'src/app/services/crm/category.service';
 import { ProductService } from 'src/app/services/crm/product.service';
@@ -32,15 +33,15 @@ export class AllProductsPage implements OnInit {
     private prescriptionService: PrescriptionService,
     private navParams: NavParams,
     private interactionService: InteractionService,
-    private modalCntrl: ModalController) { 
+    private modalCntrl: ModalController,
+    private authService: AuthService) { 
       this.modalController = new ModalControllers(modalCntrl);
     }
 
 
 
   ngOnInit() {
-    this.currentUser = this.navParams.get('user');
-    this.comment = this.navParams.get('comment');
+    this.currentUser = this.authService.user;
     this.getPharmacyProducts();
   }
 
@@ -55,8 +56,12 @@ export class AllProductsPage implements OnInit {
             this.searchProduct = this.mainProducts;
             this.watchResolution(false);
             this.intercationService.hide();
-          });
-      });
+          })
+          .catch(err => {
+            this.interactionService.hide();
+          });;
+      })
+      
   }
 
   async removeNullMainProduct(){
