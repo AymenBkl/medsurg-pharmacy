@@ -11,7 +11,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx'
 @Component({
   selector: 'app-prescription',
   templateUrl: './prescription.component.html',
@@ -40,8 +39,7 @@ export class PrescriptionComponent implements OnInit {
     private base64: Base64,
     private androidPermissions: AndroidPermissions,
     private file: File,
-    private fileTransfer: FileTransfer,
-    private camera: Camera) {
+    private fileTransfer: FileTransfer) {
     this.modalControllers = new ModalControllers(modalCntrl);
   }
 
@@ -150,7 +148,7 @@ export class PrescriptionComponent implements OnInit {
           this.downloadViaURL(file);
         }
         else {
-          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,this.androidPermissions.PERMISSION.CAMERA])
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
             .then((result) => {
               console.log(result.hasPermission);
               if (result.hasPermission) {

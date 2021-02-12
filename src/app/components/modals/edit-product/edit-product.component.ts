@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { Category } from 'src/app/interfaces/category';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { onValueChanged } from './valueChanges';
 import { ProductService } from '../../../services/crm/product.service';
 import { InteractionService } from '../../../services/interaction.service';
@@ -28,14 +28,14 @@ export class EditProductComponent implements OnInit {
 
   @Input('currentProduct') currentProduct1: Product;
 
-  @Input('user') user : User;
+  @Input('user') user: User;
 
   constructor(private navParams: NavParams,
-              private formBuilder: FormBuilder,
-              private productService: ProductService,
-              private interactionService: InteractionService,
-              private modalCntrl: ModalController,
-              private router: Router ) { }
+    private formBuilder: FormBuilder,
+    private productService: ProductService,
+    private interactionService: InteractionService,
+    private modalCntrl: ModalController,
+    private router: Router) { }
 
   ngOnInit() {
     this.getProduct();
@@ -43,8 +43,8 @@ export class EditProductComponent implements OnInit {
 
   buildReactiveForm() {
     this.productForm = this.formBuilder.group({
-      description : [''],
-      price : [this.currentProduct.price, [Validators.required]],
+      description: [''],
+      price: [this.currentProduct.price, [Validators.required]],
     });
 
     this.productForm.valueChanges
@@ -74,7 +74,7 @@ export class EditProductComponent implements OnInit {
           .then((result: any) => {
             this.interactionService.hide();
             this.submitted = false;
-            if (result && result !== false){
+            if (result && result !== false) {
               this.currentProduct = result;
               this.interactionService.createToast('Your Information Has Been Updated', 'success', 'bottom');
             }
@@ -99,36 +99,48 @@ export class EditProductComponent implements OnInit {
         this.productService.postImage(formData, this.currentProduct._id)
           .then((result: any) => {
             this.interactionService.hide();
-            if (result && result !== false){
+            if (result && result !== false) {
               this.interactionService.createToast('Your image updated', 'success', 'bottom');
               this.currentProduct.imageUrl = result;
             }
             else {
               this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
             }
-      }   );
+          });
       }).catch(err => {
         this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
       });
   }
 
   deleteProduct() {
-    this.interactionService.alertWithHandler('Do you want to delete this Product !', 'Alert' , 'CANCEL' , 'DELETE')
-        .then((result) => {
-          if (result == true){
-            this.productService.deleteProduct(this.currentProduct._id)
-            .then(result => {
-              if (result && result === true){
-                this.router.navigate[('/all-main-products')];
-              }
+    this.interactionService.alertWithHandler('Do you want to delete this Product !', 'Alert', 'CANCEL', 'DELETE')
+      .then((result) => {
+        if (result == true) {
+          this.interactionService.createLoading('Deleting Product Please Wait !')
+            .then(() => {
+              this.productService.deleteProduct(this.currentProduct._id)
+                .then(result => {
+                  this.interactionService.hide();
+                  if (result && result === true) {
+                    this.interactionService.createToast('Product Deleted !', 'success', 'bottom');
+                    this.modalCntrl.dismiss();
+                  }
+                  else {
+                    this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
+                  }
+                  
+                })
+                .catch(err => {
+                  this.interactionService.hide();
+                  this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
+                  console.log(err);
+                });
             })
-            .catch(err => {
-              console.log(err);
-            });
-          }
-          
-        });
-    }
+
+        }
+
+      });
+  }
 
 }
 
