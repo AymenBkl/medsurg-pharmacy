@@ -1,11 +1,11 @@
 <app-header [page]="'Add Product'" [type]="'page'"></app-header>
 
-<ion-content>
-  <app-edit-product [mainProduct]='selectedProduct' [user]="user" [currentProduct]="currentProduct" [type]="'addproduct'" *ngIf="user && currentProduct != null && currentSlide == 0"></app-edit-product>
+<ion-content *ngIf="currentProduct">
+  <app-edit-product [mainProduct]='selectedProduct' [user]="user" [currentProduct]="currentProduct" [type]="'addproduct'" *ngIf="user && currentProduct != null && currentSlide == 0 && currentProduct.status == 'active'"></app-edit-product>
   <ion-grid>
     <ion-row class="ion-align-items-center" >
       <ion-col size="12" size-md="8" offset-md="2">
-        <ion-slides class="center-row"  [options]='slideOpts' *ngIf='user && (currentProduct == null || currentSlide != 0) ' #slides class="swiper-no-swiping slides" >
+        <ion-slides class="center-row"  [options]='slideOpts' *ngIf='user && ((currentProduct == null || currentSlide != 0) || (currentProduct && currentProduct.status == "deleted"))' #slides class="swiper-no-swiping slides" >
           <ion-slide class="slide intro-slide" >
              <ion-label class="intro">Adding Medecins Will help you geting noticed</ion-label>
              <ion-button class="buttons" (click)='start()'>
@@ -40,7 +40,7 @@
                 <ion-label class="label">Medecin COMPANY</ion-label>
                 <ion-input [disabled]="true" [value]="selectedProduct.company_name"></ion-input>
               </ion-item>
-              <ion-button class="buttons" [disabled]="productForm.invalid || submitted" (click)="addProduct()" shape="round" size="default" expand="full" *ngIf="currentProduct == null">
+              <ion-button class="buttons" [disabled]="productForm.invalid || submitted" (click)="addProduct()" shape="round" size="default" expand="full" *ngIf="(currentProduct == null) || (currentProduct && currentProduct.status == 'deleted')">
                 <ion-label *ngIf="!submitted">Apend Medecin</ion-label>
                 <ion-spinner name="bubbles" *ngIf="submitted"></ion-spinner>
               </ion-button>
@@ -63,7 +63,7 @@
     </ion-row>
   </ion-grid>
   
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="(currentSlide == 1 && currentProduct != null)">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="(currentSlide == 1 && ((currentProduct == null) || (currentProduct && currentProduct.status == 'active')))">
     <ion-fab-button (click)="next()">
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>

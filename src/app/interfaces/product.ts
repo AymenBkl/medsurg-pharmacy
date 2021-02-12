@@ -14,5 +14,6 @@ export interface Product {
     sgst:number;
     igst:number;
     company_name:string;
+    status:string;
     mainProduct : MainProduct;
 }

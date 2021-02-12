@@ -11,5 +11,6 @@ export interface MainProduct {
     cgst:number;
     sgst:number;
     igst:number;
+    status:string;
     company_name:string;
 }
