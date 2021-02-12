@@ -69,6 +69,11 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
+  {
+    path: 'all-products',
+    redirectTo: 'tabs/tab4/all-products', 
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

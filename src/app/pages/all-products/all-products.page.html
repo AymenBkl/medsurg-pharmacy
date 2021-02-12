@@ -1,0 +1,28 @@
+<app-header [page]="'All Products'" [type]="'page'"></app-header>
+  <ion-content>
+    <ion-grid class="ion-no-padding" *ngIf="currentUser && searchProduct && (arrToDisplay.length > 0)">
+      <ion-virtual-scroll [items]="arrToDisplay" approxItemHeight="320px" approxHeaderHeight="10px" approxFooterHeight="10px">
+      <ion-row class="ion-no-padding row"  *virtualItem="let item;let itemBounds = bounds;" >
+        <ion-col  class="animate-item  col"  *ngFor="let itemToDisplay of item" size="6" size-md="4" size-lg="3"
+           routerDirection="forward" (click)="openEditProduct(itemToDisplay)">
+              <ion-card>
+                <ion-thumbnail>
+                  <img *ngIf="itemToDisplay.mainProduct && itemToDisplay.mainProduct.imageUrl != ''" [src]="itemToDisplay.mainProduct.imageUrl"  />
+                  <img *ngIf="itemToDisplay.mainProduct &&  itemToDisplay.mainProduct.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
+                </ion-thumbnail>
+                <ion-card-content>
+                  <ion-text>
+                    <h6>{{itemToDisplay.mainProduct.name}}</h6>
+                    <!--<p>{{c.total_products}} {{'Products'| translate }}</p>-->
+                  </ion-text>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-virtual-scroll>
+    </ion-grid>
+    <div class="spin" *ngIf="!currentUser && !searchProduct">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+  </ion-content>
+  

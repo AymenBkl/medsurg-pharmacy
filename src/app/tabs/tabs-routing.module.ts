@@ -53,6 +53,11 @@ const routess: Routes = [
         loadChildren: () => import('../pages/payment-detail/payment-detail.module').then( m => m.PaymentDetailPageModule),
         canActivate: [AuthGuard]
       },
+      {
+        path: 'tab4/all-products',
+        loadChildren: () => import('../pages/all-products/all-products.module').then( m => m.AllProductsPageModule),
+        canActivate: [AuthGuard]
+      },
       
       {
         path: 'tab4/messages',
