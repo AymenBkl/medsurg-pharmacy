@@ -75,10 +75,10 @@ export class ProfilePage implements OnInit {
   }
 
   selectedImage(event) {
+    if (this.isFileImage(event.target.files[0])){
     this.interactionService.createLoading('Updating Your image !!')
       .then(() => {
         const formData = new FormData();
-        console.log(event.target.files[0]);
         formData.append('file', event.target.files[0]);
         this.userService.postImage(formData)
           .then((result: any) => {
@@ -96,6 +96,16 @@ export class ProfilePage implements OnInit {
         this.interactionService.hide();
         this.interactionService.createToast('Something Went Wrong !', 'danger', 'bottom');
       });
+    }
+      else {
+        this.interactionService.createToast('You must select an image !', 'danger', 'bottom');
+      }
+  }
+
+  isFileImage(file) {
+    const acceptedImageTypes = ['image/jpeg', 'image/png'];
+  
+    return file && acceptedImageTypes.includes(file['type'])
   }
 
   ionViewDidEnter(){

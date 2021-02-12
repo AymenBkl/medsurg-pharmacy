@@ -179,10 +179,10 @@ mainProductChange($event){
   }
 
   selectedImage(event) {
+    if (this.isFileImage(event.target.files[0])){
     this.intercationService.createLoading('Updating Your image !!')
       .then(() => {
         const formData = new FormData();
-        console.log(event.target.files[0]);
         formData.append('file', event.target.files[0]);
         this.productService.postImage(formData, this.currentProduct._id)
           .then((result: any) => {
@@ -199,6 +199,16 @@ mainProductChange($event){
         this.intercationService.hide();
         this.intercationService.createToast('Something Went Wrong !', 'danger', 'bottom');
       });
+    }
+    else {
+      this.intercationService.createToast('You must select an image !', 'danger', 'bottom');
+    }
+  }
+
+  isFileImage(file) {
+    const acceptedImageTypes = ['image/jpeg', 'image/png'];
+  
+    return file && acceptedImageTypes.includes(file['type'])
   }
 
   navigateBack() {

@@ -53,7 +53,7 @@
             <img *ngIf="currentProduct && currentProduct.imageUrl != ''" [src]="currentProduct.imageUrl">
              <div class="rounded-input" >
               <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
-              <input id="files" type="file" style="visibility:hidden;"  (change)="selectedImage($event)" >
+              <input id="files" type="file" style="visibility:hidden;"  (change)="selectedImage($event)" accept=".png, .jpeg">
             </div>
            </ion-avatar>
           </ion-slide>
