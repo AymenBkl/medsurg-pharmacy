@@ -81,17 +81,19 @@ export class AddproductPage implements OnInit {
   }
 
   buildReactiveForm() {
-    if (!this.currentProduct) {
-      this.productForm = this.formBuilder.group({
-        description: [''],
-        price: ['', [Validators.required]],
-        pharmacy: [this.authService.user._id, [Validators.required]]
-      });
-    }
-    else if (this.currentProduct) {
+    if (this.currentProduct) {
+      console.log("what");
       this.productForm = this.formBuilder.group({
         description: [this.currentProduct.description],
         price: [this.currentProduct.price, [Validators.required]],
+        pharmacy: [this.authService.user._id, [Validators.required]]
+      });
+    }
+    else {
+      console.log("heeere");
+      this.productForm = this.formBuilder.group({
+        description: [''],
+        price: ['', [Validators.required]],
         pharmacy: [this.authService.user._id, [Validators.required]]
       });
     }
@@ -148,7 +150,6 @@ export class AddproductPage implements OnInit {
             this.intercationService.hide();
             if (result && result !== false) {
               this.allMainProduct = result;
-              this.buildReactiveForm();
             }
             else {
               this.intercationService.createToast('Error', 'danger', 'bottom');
@@ -239,9 +240,13 @@ export class AddproductPage implements OnInit {
             this.currentProduct = result[0];
             this.buildReactiveForm();
           }
+          else {
+            this.buildReactiveForm();
+          }
         }
       })
       .catch(err => {
+        this.buildReactiveForm();
       });
   }
 

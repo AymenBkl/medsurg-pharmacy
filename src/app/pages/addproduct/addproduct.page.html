@@ -1,6 +1,6 @@
 <app-header [page]="'Add Product'" [type]="'page'"></app-header>
 
-<ion-content *ngIf="currentProduct">
+<ion-content>
   <app-edit-product [mainProduct]='selectedProduct' [user]="user" [currentProduct]="currentProduct" [type]="'addproduct'" *ngIf="user && currentProduct != null && currentSlide == 0 && currentProduct.status == 'active'"></app-edit-product>
   <ion-grid>
     <ion-row class="ion-align-items-center" >
@@ -12,7 +12,7 @@
                <ion-label>Start</ion-label>
              </ion-button>
           </ion-slide>
-          <ion-slide class="slide">
+          <ion-slide class="slide" *ngIf="productForm">
             <form novalidate  [formGroup]="productForm"  class="form" (ngSubmit)="addProduct()" data-aos="fade-up">
               <ion-title class="intro"*ngIf="selectedProduct">You are selecting {{selectedProduct.name}}</ion-title>
               <ion-item lines="none" class="ion-input">
@@ -63,7 +63,7 @@
     </ion-row>
   </ion-grid>
   
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="(currentSlide == 1 && ((currentProduct == null) || (currentProduct && currentProduct.status == 'active')))">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="(currentSlide == 1 && (currentProduct && currentProduct.status == 'active'))">
     <ion-fab-button (click)="next()">
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>
