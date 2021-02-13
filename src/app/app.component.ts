@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.createDirImages();
+      //this.createDirImages();
     });
   }
 
@@ -132,8 +132,9 @@ export class AppComponent implements OnInit {
   }
 
 
-  createDirImages(){
+ /**  createDirImages(){
     console.log('aymenxyzbkltest')
+    console.log('aymenxyzbkltest',this.file.applicationStorageDirectory);
     if(this.platform.is('android')) {
       this.file.checkDir(this.file.externalRootDirectory + 'DCIM/', 'MEDSURG PHARMACY').then(response => {
         console.log('Directory exists'+response);
@@ -155,9 +156,19 @@ export class AppComponent implements OnInit {
           console.log('Directory no create'+JSON.stringify(err));
         }); 
       });
-    }
+      this.file.checkDir(this.file.externalRootDirectory + '/', 'MEDSURG PHARMACY').then(response => {
+        console.log('Directory exists'+response);
+      }).catch(err => {
+        console.log('Directory doesn\'t exist'+JSON.stringify(err));
+        this.file.createDir(this.file.externalRootDirectory + '/', 'MEDSURG PHARMACY', false).then(response => {
+          console.log('Directory create'+response);
+        }).catch(err => {
+          console.log('Directory no create'+JSON.stringify(err));
+        }); 
+      });
+    
   }
-
+}*/
   
 
 

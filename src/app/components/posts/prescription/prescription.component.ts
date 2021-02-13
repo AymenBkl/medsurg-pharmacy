@@ -11,6 +11,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 @Component({
   selector: 'app-prescription',
   templateUrl: './prescription.component.html',
@@ -39,7 +40,8 @@ export class PrescriptionComponent implements OnInit {
     private base64: Base64,
     private androidPermissions: AndroidPermissions,
     private file: File,
-    private fileTransfer: FileTransfer) {
+    private fileTransfer: FileTransfer,
+    private photoLibrary: PhotoLibrary) {
     this.modalControllers = new ModalControllers(modalCntrl);
   }
 
@@ -174,6 +176,10 @@ export class PrescriptionComponent implements OnInit {
     let path = this.file.externalDataDirectory + url.substring(url.lastIndexOf('/') + 1);
     console.log(this.file.externalDataDirectory, path);
     this.file.checkFile(this.file.externalDataDirectory, url.substring(url.lastIndexOf('/') + 1)).then(value => {
+      console.log('value',value);
+      if (value){
+        this.savePhotoLibrary(path);
+      }
     }, reason => {
 
       console.log('reason : ', JSON.stringify(reason))
@@ -183,10 +189,10 @@ export class PrescriptionComponent implements OnInit {
 
         console.log('download : ', JSON.stringify(value));
         console.log(value.nativeURL);
-        this.imageToBase64(value.nativeURL);
-        this.file.copyFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'DCIM/MEDSURG PHARMACY', value.name)
-        this.file.moveFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
-
+        //this.imageToBase64(value.nativeURL);
+        //this.file.copyFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'DCIM/MEDSURG PHARMACY', value.name)
+        //this.file.moveFile(this.file.externalDataDirectory, value.name, this.file.externalRootDirectory + 'Pictures/MEDSURG PHARMACY', value.name)
+        this.savePhotoLibrary(this.file.externalDataDirectory + value.name);
 
 
       }, rejected => {
@@ -208,7 +214,7 @@ export class PrescriptionComponent implements OnInit {
   }
 
 
-  imageToBase64(filePath: string) {
+  /**imageToBase64(filePath: string) {
     this.base64.encodeFile(filePath).then((base64File: string) => {
       console.log("base64",base64File);
       this.saveImageToGallery(base64File.split(',')[1])
@@ -219,9 +225,29 @@ export class PrescriptionComponent implements OnInit {
 
   saveImageToGallery(base64Data){
     this.base64ToGallery.base64ToGallery(base64Data,{prefix: 'pharmacy_',mediaScanner: false}).then(
-      res => console.log('Saved image to gallery ', res),
+      (res:string) => {
+        const fileName = res.substring(res.lastIndexOf('/') + 1);
+        console.log('Saved image to gallery ', res,this.file.externalRootDirectory + fileName);
+
+        this.file.moveFile(this.file.externalRootDirectory,fileName,this.file.externalRootDirectory + 'MEDSURG PHARMACY',fileName);
+      },
       err => console.log('Error saving image to gallery ', err)
     );
+  }**/
+
+
+  savePhotoLibrary(path:string){
+    console.log('phath',path);
+    this.photoLibrary.requestAuthorization()
+      .then(() => {
+        this.photoLibrary.saveImage(path,'MEDSURG PHARMACY')
+          .then(() => {
+            console.log('photo saved');
+          })
+          .catch(err => {
+            console.log('err' , err);
+          })
+      })
   }
 
 
