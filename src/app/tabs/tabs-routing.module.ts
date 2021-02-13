@@ -58,6 +58,11 @@ const routess: Routes = [
         loadChildren: () => import('../pages/all-products/all-products.module').then( m => m.AllProductsPageModule),
         canActivate: [AuthGuard]
       },
+      {
+        path: 'tab5',
+        redirectTo:'tab4/all-products',
+        canActivate: [AuthGuard]
+      },
       
       {
         path: 'tab4/messages',

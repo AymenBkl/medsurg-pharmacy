@@ -93,6 +93,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.createDirImages();
     });
   }
 
@@ -100,7 +101,6 @@ export class AppComponent implements OnInit {
     this.authService.checkJWT();
     this.menuItems();
     this.getCurrentUser();
-    this.createDirImages();
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
@@ -133,6 +133,7 @@ export class AppComponent implements OnInit {
 
 
   createDirImages(){
+    console.log('aymenxyzbkltest')
     if(this.platform.is('android')) {
       this.file.checkDir(this.file.externalRootDirectory + 'DCIM/', 'MEDSURG PHARMACY').then(response => {
         console.log('Directory exists'+response);
