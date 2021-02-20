@@ -38,9 +38,10 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
-import { Camera } from '@ionic-native/camera/ngx'
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { CameraUploadService } from './services/plugin/camera-upload.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -79,6 +80,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
     CallNumber,
     PhotoLibrary,
     HTTP,
+    ImagePicker,
+    CameraUploadService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
