@@ -44,6 +44,7 @@ export class ResetPasswordPage implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      passwordHidden: true,
     },
       {
         validators: MustMatch('password', 'confirmPassword')

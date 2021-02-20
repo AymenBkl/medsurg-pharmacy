@@ -12,7 +12,9 @@
           <ion-label class="label-error" *ngIf="formErrors && formErrors.phoneNumber">*{{formErrors.phoneNumber}}</ion-label>
           <ion-item lines="none" class="ion-input">
             <ion-icon name="lock-closed"></ion-icon>
-            <ion-input placeHolder="Password" formControlName="password"></ion-input>
+            <ion-input [type]='loginForm.value.passwordHidden ? "text":"password"' placeHolder="Password" formControlName="password"></ion-input>
+            <ion-checkbox class="checkbox" formControlName='passwordHidden'></ion-checkbox>
+            <ion-icon class="icon-check-box" [name]="loginForm.value.passwordHidden == true ? 'eye-outline' : 'eye-off-outline' "></ion-icon>
           </ion-item>
           <ion-label class="label-error" *ngIf="formErrors && formErrors.password">*{{formErrors.password}}</ion-label>
           <ion-item lines="none" class="ion-input">

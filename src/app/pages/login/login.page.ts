@@ -33,7 +33,8 @@ export class LoginPage implements OnInit {
     this.loginForm = this.formBuilder.group({
       phoneNumber : ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       password : ['', [Validators.required, Validators.minLength(6)]],
-      remember : false
+      remember : false,
+      passwordHidden:true,
     });
     this.loginForm.valueChanges
       .subscribe(user => {
@@ -95,7 +96,7 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/home']);
     setTimeout(() => {
         this.interactionService.hide();
-    }, 3000);
+    }, 500);
   }
 
   ionViewDidEnter() {

@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
       password : ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword : ['', [Validators.required, Validators.minLength(6)]],
       role : 'pharmacy',
+      passwordHidden:true
     },
     {
       validators : MustMatch('password', 'confirmPassword')
@@ -92,7 +93,7 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/home']);
     setTimeout(() => {
         this.interactionService.hide();
-    }, 3000);
+    }, 500);
   }
 
   ionViewDidEnter() {
