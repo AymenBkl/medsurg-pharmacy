@@ -41,7 +41,7 @@
             </ion-slide>
           </ion-slides>
           <ion-item line="none" class="prescription-holder">
-            <img *ngIf="prescription.imageUrl.length == 0" src="../../../assets/imgs/photo.png">
+            <img *ngIf="(prescription.imageUrl && prescription.imageUrl.length == 0) || !prescription.imageUrl" src="../../../assets/imgs/photo.png">
           </ion-item>
         </div>
           <ion-item lines="none" class="comment-holder">
@@ -107,7 +107,7 @@
             </ion-slide>
           </ion-slides>
           <ion-item line="none" class="prescription-holder">
-            <img *ngIf="prescription.imageUrl.length == 0" src="../../../assets/imgs/photo.png">
+            <img *ngIf="(prescription.imageUrl && prescription.imageUrl.length == 0) || !prescription.imageUrl" src="../../../assets/imgs/photo.png">
           </ion-item>
         </div>
           <ion-item lines="none" class="comment-holder">
