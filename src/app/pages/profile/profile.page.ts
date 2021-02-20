@@ -78,12 +78,12 @@ export class ProfilePage implements OnInit {
       });
   }
 
-  selectedImage(event) {
-    if (this.isFileImage(event.target.files[0])){
+  selectedImage(file) {
+    if (this.isFileImage(file)){
     this.interactionService.createLoading('Updating Your image !!')
       .then(() => {
         const formData = new FormData();
-        formData.append('file', event.target.files[0]);
+        formData.append('file', file);
         this.userService.postImage(formData)
           .then((result: any) => {
             this.interactionService.hide();

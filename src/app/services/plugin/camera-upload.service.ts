@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'

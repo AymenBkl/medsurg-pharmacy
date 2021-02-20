@@ -191,12 +191,12 @@ export class AddproductPage implements OnInit {
       });
   }
 
-  selectedImage(event) {
-    if (this.isFileImage(event.target.files[0])) {
+  selectedImage(file) {
+    if (this.isFileImage(file)) {
       this.intercationService.createLoading('Updating Your image !!')
         .then(() => {
           const formData = new FormData();
-          formData.append('file', event.target.files[0]);
+          formData.append('file', file);
           this.productService.postImage(formData, this.currentProduct._id)
             .then((result: any) => {
               this.intercationService.hide();
