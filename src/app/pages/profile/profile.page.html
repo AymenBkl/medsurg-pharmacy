@@ -15,9 +15,8 @@
         <ion-avatar class="img">
           <img *ngIf="!currentUser || currentUser.imageUrl == '' " src="../../../assets/imgs/pharmacy-user-img.png">
           <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
-          <div class="rounded-input" *ngIf="toggle">
-            <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
-            <input id="files" type="file" style="visibility:hidden;" [(ngModel)]="image" (change)="selectedImage($event)" accept=".png, .jpeg">
+          <div class="rounded-input" *ngIf="toggle" (click)="presentActionSheet()">
+            <ion-icon name="camera-outline" class="btn"></ion-icon>
           </div>
         </ion-avatar>
       </ion-col>

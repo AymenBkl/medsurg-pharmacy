@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { onValueChanged } from '../register/valueChanges';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
+import { CameraUploadService } from 'src/app/services/plugin/camera-upload.service';
+import { ActionSheetController } from '@ionic/angular';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -24,6 +26,8 @@ export class ProfilePage implements OnInit {
               private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
+              private cameraService: CameraUploadService,
+              private actionSheetController: ActionSheetController,
               @Inject('bucketURL') public bucketURL,
               ) {
   }
@@ -118,6 +122,58 @@ export class ProfilePage implements OnInit {
         this.router.navigate(['/login']);
       }).catch(() => {
         this.router.navigate(['/login']);
+      });
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      cssClass: 'my-custom-class',
+      buttons: [{
+
+        text: 'Open Camera',
+        icon: 'camera-outline',
+        handler: () => {
+          this.getPhoto( 'camera')
+        }
+      },
+      {
+
+        text: 'Open Gallery',
+        icon: 'image-outline',
+        handler: () => {
+          this.getPhoto('gallery')
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  getPhoto(type: string) {
+    this.cameraService.uploadPhotoGallery(type)
+      .then((result: any) => {
+        console.log(JSON.stringify(result.url));
+        console.log("file", result.file);
+        if (result && result != null) {
+          console.log("check", result.url != '' && result.file != '');
+          if (result === 'not image') {
+            this.interactionService.createToast('TOAST_IMAGE_ERROR', 'danger', 'bottom');
+          }
+          else if (result.url != '' && result.file != '') {
+            this.selectedImage(result.file);
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 
