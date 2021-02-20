@@ -33,8 +33,8 @@
          routerDirection="forward" (click)="selectedProduct(itemToDisplay)">
             <ion-card [class.selected]='checkProdExist(itemToDisplay).length > 0' *ngIf="itemToDisplay.mainProduct != null">
               <ion-thumbnail>
-                <img *ngIf="itemToDisplay.mainProduct && itemToDisplay.mainProduct.imageUrl != ''" [src]="itemToDisplay.mainProduct.imageUrl"  />
-                <img *ngIf="itemToDisplay.mainProduct &&  itemToDisplay.mainProduct.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
+                <img *ngIf="itemToDisplay && itemToDisplay.imageUrl != ''" [src]="itemToDisplay.imageUrl"  />
+                <img *ngIf="itemToDisplay &&  itemToDisplay.imageUrl == ''" src="../../../assets/imgs/capsules.png"  />
               </ion-thumbnail>
               <ion-card-content>
                 <ion-text>
