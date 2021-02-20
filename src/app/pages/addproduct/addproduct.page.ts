@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { ActionSheetController, IonSlides } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from '../../services/auth.service';
 import { InteractionService } from '../../services/interaction.service';
@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AllproductsService } from 'src/app/services/crm/allproducts.service';
+import { CameraUploadService } from 'src/app/services/plugin/camera-upload.service';
 @Component({
   selector: 'app-addproduct',
   templateUrl: './addproduct.page.html',
@@ -40,6 +41,8 @@ export class AddproductPage implements OnInit {
     private formBuilder: FormBuilder,
     private navCntrl: NavController,
     private productService: ProductService,
+    private cameraService: CameraUploadService,
+    private actionSheetController: ActionSheetController,
     private activeRouter: ActivatedRoute) { }
 
   ngOnInit() {
@@ -247,6 +250,59 @@ export class AddproductPage implements OnInit {
       })
       .catch(err => {
         this.buildReactiveForm();
+      });
+  }
+
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      cssClass: 'my-custom-class',
+      buttons: [{
+
+        text: 'Open Camera',
+        icon: 'camera-outline',
+        handler: () => {
+          this.getPhoto( 'camera')
+        }
+      },
+      {
+
+        text: 'Open Gallery',
+        icon: 'image-outline',
+        handler: () => {
+          this.getPhoto('gallery')
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  getPhoto(type: string) {
+    this.cameraService.uploadPhotoGallery(type)
+      .then((result: any) => {
+        console.log(JSON.stringify(result.url));
+        console.log("file", result.file);
+        if (result && result != null) {
+          console.log("check", result.url != '' && result.file != '');
+          if (result === 'not image') {
+            this.intercationService.createToast('TOAST_IMAGE_ERROR', 'danger', 'bottom');
+          }
+          else if (result.url != '' && result.file != '') {
+            this.selectedImage(result.file);
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 

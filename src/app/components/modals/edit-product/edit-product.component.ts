@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, ActionSheetController } from '@ionic/angular';
 import { Category } from 'src/app/interfaces/category';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { onValueChanged } from './valueChanges';
@@ -8,6 +8,7 @@ import { InteractionService } from '../../../services/interaction.service';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { User } from 'src/app/interfaces/user';
+import { CameraUploadService } from 'src/app/services/plugin/camera-upload.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -35,6 +36,8 @@ export class EditProductComponent implements OnInit {
     private productService: ProductService,
     private interactionService: InteractionService,
     private modalCntrl: ModalController,
+    private cameraService: CameraUploadService,
+    private actionSheetController: ActionSheetController,
     private router: Router) { }
 
   ngOnInit() {
@@ -149,6 +152,59 @@ export class EditProductComponent implements OnInit {
 
         }
 
+      });
+  }
+
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      cssClass: 'my-custom-class',
+      buttons: [{
+
+        text: 'Open Camera',
+        icon: 'camera-outline',
+        handler: () => {
+          this.getPhoto( 'camera')
+        }
+      },
+      {
+
+        text: 'Open Gallery',
+        icon: 'image-outline',
+        handler: () => {
+          this.getPhoto('gallery')
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  getPhoto(type: string) {
+    this.cameraService.uploadPhotoGallery(type)
+      .then((result: any) => {
+        console.log(JSON.stringify(result.url));
+        console.log("file", result.file);
+        if (result && result != null) {
+          console.log("check", result.url != '' && result.file != '');
+          if (result === 'not image') {
+            this.interactionService.createToast('TOAST_IMAGE_ERROR', 'danger', 'bottom');
+          }
+          else if (result.url != '' && result.file != '') {
+            this.selectedImage(result.file);
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 

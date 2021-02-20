@@ -51,9 +51,8 @@
            <ion-avatar class="avatar">
             <img *ngIf="!currentProduct || currentProduct.imageUrl == '' " src="../../../assets/imgs/medicine.png">
             <img *ngIf="currentProduct && currentProduct.imageUrl != ''" [src]="currentProduct.imageUrl">
-             <div class="rounded-input" >
-              <label for="files" class="btn"><ion-icon name="camera-outline"></ion-icon></label>
-              <input id="files" type="file" style="visibility:hidden;"  (change)="selectedImage($event)" accept=".png, .jpeg">
+             <div class="rounded-input" (click)="presentActionSheet()">
+              <ion-icon name="camera-outline"  class="btn"></ion-icon>
             </div>
            </ion-avatar>
           </ion-slide>
