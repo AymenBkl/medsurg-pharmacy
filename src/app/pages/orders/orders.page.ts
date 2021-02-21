@@ -110,7 +110,7 @@ export class OrdersPage implements OnInit {
     this.modalControllerOrder.callEditOrder(this.currentUser, order)
   }
 
-  filterOrders(orders: Order[]) {
+  async filterOrders(orders: Order[]) {
     console.log(orders);
     this.allOrder =
     {
@@ -129,7 +129,7 @@ export class OrdersPage implements OnInit {
         ACTIVE: { created: [], accepted: [], canceled: [], rejected: [], delivered: [], all: [] }
       }
     }
-    orders.map(async (order) => {
+    for(let order of orders){
       let r = await this.cashfree.paymentStatus(order._id)
         .then(async (paymentStatus: PaymentStatus) => {
           if (order.method == 'card' && paymentStatus.status == 'OK') {
@@ -142,7 +142,7 @@ export class OrdersPage implements OnInit {
           }
         })
       console.log(this.allOrder);
-    });
+    };
   }
 
   async affectCard(order: Order,paymentStatus) {
