@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
@@ -84,7 +84,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthService,
     private router: Router,
-    private file: File
+    private file: File,
+    private navCntrl: NavController
   ) {
     this.initializeApp();
   }
@@ -93,6 +94,13 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.platform.backButton.subscribeWithPriority(10, () => {
+        console.log("event fired");
+        if (this.router.url != '/tabs/tab1'){
+          this.navCntrl.back();
+        }
+        console.log("router",this.router.url)
+      });
       //this.createDirImages();
     });
   }

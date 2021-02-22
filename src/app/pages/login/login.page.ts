@@ -51,11 +51,11 @@ export class LoginPage implements OnInit {
         if (result && result !== false){
           this.interactionService.createToast('WELCOM', 'success', 'bottom');
           if (result.role === 'pharmacy') {
-          if (result.emailVerified === false || result.emailVerified == null){
-            this.goToHome();
-          }
+            if (result.status != 'blocked') {
+              this.goToHome();
+            }
           else {
-            this.goToHome();
+            this.interactionService.createToast('You are BLOCKED', 'danger', 'bottom');
           }
         }
         else {

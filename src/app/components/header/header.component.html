@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="toolbar0" >
-    <ion-buttons slot="start" class="button-header" *ngIf="type == 'page'">
+    <ion-buttons slot="start" class="button-header" *ngIf="type == 'page' && (page != 'Login' && page != 'Register' && page != 'Home')">
       <ion-back-button defaultHref="/" (click)="back()" ></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="start" *ngIf="type == 'modal'" >

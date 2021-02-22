@@ -44,9 +44,15 @@ export class AuthService {
           .subscribe(response => {
             console.log(response);
             if (response.token === 'TOKEN VALID' && response.status === 200) {
-              response.user.token = token;
-              this.setUserCredentials(response.user);
-              resolve(true);
+              if (response.user.status != 'blocked'){
+                response.user.token = token;
+                this.setUserCredentials(response.user);
+                resolve(true);
+              }
+              else {
+                this.destroyUserCredentials();
+                resolve(false);
+              }
             }
             else {
               this.destroyUserCredentials();

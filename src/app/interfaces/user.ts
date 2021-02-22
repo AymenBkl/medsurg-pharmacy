@@ -15,4 +15,5 @@ export interface User {
     emailVerified: boolean;
     addresses:Address[];
     paymentDetail: PaymentDetail;
+    status:string;
 }
