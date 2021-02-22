@@ -49,6 +49,7 @@ export class LoginPage implements OnInit {
       .then((result: any) => {
         console.log(result);
         if (result && result !== false){
+          this.submitted = false;
           this.interactionService.createToast('WELCOM', 'success', 'bottom');
           if (result.role === 'pharmacy') {
             if (result.status != 'blocked') {
