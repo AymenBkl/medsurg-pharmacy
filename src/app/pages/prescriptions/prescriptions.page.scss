@@ -76,6 +76,13 @@
     --background: #2dd36f;
 }
 
+.comment-holder.hidden {
+    display: none;
+}
+.comment-holder.ows {
+    --background: #2B91BF;
+}
+
   .not-found{
     position: fixed;
     top: 50%;

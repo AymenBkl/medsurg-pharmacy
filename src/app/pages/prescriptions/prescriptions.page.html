@@ -59,7 +59,7 @@
             </ion-input>
           </div>
           </ion-item>
-          <ion-item lines="none" class="comment-holder" *ngFor="let comment of prescription.comments" [class.highlited]='comment.status == "accepted"'>
+          <ion-item lines="none" class="comment-holder" *ngFor="let comment of prescription.comments" [class.ows]='comment.pharmacy._id == currentUser._id' [class.hidden]='comment.pharmacy._id != currentUser._id'>
             <div class="comment-holder">
               <ion-avatar class="img">
                 <img *ngIf="!comment || comment.pharmacy.imageUrl == '' " src="../../../assets/imgs/pharmacy-user-img.png">
@@ -116,7 +116,7 @@
             </div>
           </ion-item>
           
-          <ion-item lines="none" class="comment-holder" *ngFor="let comment of prescription.comments" [class.highlited]='comment.status == "approved"'>
+          <ion-item lines="none" class="comment-holder" *ngFor="let comment of prescription.comments" [class.highlited]='comment.status == "approved"' [class.hidden]='comment.pharmacy._id != currentUser._id'>
             <div class="comment-holder">
               <ion-avatar class="img">
                 <img *ngIf="!comment || comment.pharmacy.imageUrl == '' " src="../../../assets/imgs/pharmacy-user-img.png">

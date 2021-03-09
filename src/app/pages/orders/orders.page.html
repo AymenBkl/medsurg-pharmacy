@@ -4,10 +4,10 @@
 <ion-content>
   <ion-segment (ionChange)="segmentChangedStatus($event)"  value="PAID"   slot="fixed"   class="segments">
     <ion-segment-button value="PAID">
-      <ion-label>RECIEVED</ion-label>
+      <ion-label>Completed</ion-label>
     </ion-segment-button>
     <ion-segment-button value="NOT PAIED">
-      <ion-label>NOT RECIEVED</ion-label>
+      <ion-label>Open</ion-label>
     </ion-segment-button>
   </ion-segment>
   <ion-segment (ionChange)="segmentChangedPayment($event)"  value="ALL"   slot="fixed"   class="segments segment-type1">
