@@ -68,7 +68,7 @@ export class OrdersPage implements OnInit {
 
 
   getAllOrders() {
-    this.interactionService.createLoading("Loading Your Message !! ..")
+    this.interactionService.createLoading("Loading Your Orders !! ..")
       .then(() => {
         this.ordersService.getOrders()
           .then((result: any) => {
