@@ -121,6 +121,13 @@ ion-fab {
     vertical-align: middle;
   }
 
+  .comment-holder.hidden {
+    display: none;
+}
+.comment-holder.ows {
+    --background: #2B91BF;
+}
+
   .add-comment {
     display: inline-block;
     width: 70%;
