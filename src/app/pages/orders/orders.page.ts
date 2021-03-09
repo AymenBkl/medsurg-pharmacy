@@ -136,7 +136,7 @@ export class OrdersPage implements OnInit {
             let result = await this.affectCard(order, paymentStatus);
           }
           else if (order.method == 'cod' && paymentStatus.status == 'ERROR'){
-            let paied = order.status == 'delivered' ? 'PAIED' : 'NOT PAIED'
+            let paied = order.status == 'delivered' ? 'PAID' : 'NOT PAIED'
             this.allOrder[paied].ALL.all.push(order);
             this.allOrder[paied].SUCCESS[order.status].push(order);
             this.allOrder[paied].SUCCESS.all.push(order);
