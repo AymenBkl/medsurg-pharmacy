@@ -129,13 +129,13 @@ export class OrdersPage implements OnInit {
         ACTIVE: { created: [], accepted: [], canceled: [], rejected: [], delivered: [], all: [] }
       }
     }
-    for(let order of orders){
+    for (let order of orders) {
       let r = await this.cashfree.paymentStatus(order._id)
         .then(async (paymentStatus: PaymentStatus) => {
           if (order.method == 'card' && paymentStatus.status == 'OK') {
             let result = await this.affectCard(order, paymentStatus);
           }
-          else if (order.method == 'cod' && paymentStatus.status == 'ERROR'){
+          else if (order.method == 'cod' && paymentStatus.status == 'ERROR') {
             let paied = order.status == 'delivered' ? 'PAID' : 'NOT PAIED'
             this.allOrder[paied].ALL.all.push(order);
             this.allOrder[paied].SUCCESS[order.status].push(order);
@@ -146,13 +146,20 @@ export class OrdersPage implements OnInit {
     };
   }
 
-  async affectCard(order: Order,paymentStatus) {
+  async affectCard(order: Order, paymentStatus) {
     order.paymentStatus = paymentStatus;
     this.allOrder[order.payedByAdmin].ALL.all.push(order);
     this.allOrder[order.payedByAdmin].ALL[order.status].push(order);
     if (order.paymentStatus && order.paymentStatus.txStatus) {
-      this.allOrder[order.payedByAdmin][order.paymentStatus.txStatus].all.push(order)
-      this.allOrder[order.payedByAdmin][order.paymentStatus.txStatus][order.status].push(order);
+      if (order.paymentStatus.txStatus in this.allOrder[order.payedByAdmin]) {
+        this.allOrder[order.payedByAdmin][order.paymentStatus.txStatus].all.push(order)
+        this.allOrder[order.payedByAdmin][order.paymentStatus.txStatus][order.status].push(order);
+      }
+      else {
+        this.allOrder[order.payedByAdmin].PENDING.all.push(order)
+        this.allOrder[order.payedByAdmin].PENDING[order.status].push(order);
+      }
+
     }
     else if (order.paymentStatus && !order.paymentStatus.txStatus) {
       this.allOrder[order.payedByAdmin][order.paymentStatus.orderStatus].all.push(order)
