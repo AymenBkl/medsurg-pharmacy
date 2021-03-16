@@ -13,7 +13,7 @@ export const config = {
     },
     cashfree: {
         url: 'https://test.cashfree.com/api/v2/',
-        appId: '50006e87c113551af7cd2573960005',
-        appKey: 'c8245f07256e427a07828a0c628557d3c378b527'
+        appId: '9531832d9f196694e8e2dccad81359',
+        appKey: 'd52051d0b97842049dcdf5a3a873497484032a58'
     }
 };

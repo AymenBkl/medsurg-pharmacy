@@ -20,7 +20,7 @@ export class CashfreeService {
         secretKey:config.cashfree.appKey,
         orderId:orderId,
       }
-        this.http.post('https://test.cashfree.com/api/v1/order/info/status',option,{'Content-Type': 'application/x-www-form-urlencoded'})
+        this.http.post('https://api.cashfree.com/api/v1/order/info/status',option,{'Content-Type': 'application/x-www-form-urlencoded'})
           .then(data => {
             resolve(JSON.parse(data.data))
           },err => {
