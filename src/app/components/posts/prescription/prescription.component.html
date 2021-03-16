@@ -53,8 +53,7 @@
                   src="../../../assets/imgs/pharmacy-user-img.png">
                 <img *ngIf="currentUser && currentUser.imageUrl != ''" [src]="currentUser.imageUrl">
               </ion-avatar>
-              <ion-input type="number" placeHolder="Comment" class="add-comment" (click)="addComent(prescription._id)">
-              </ion-input>
+              <ion-text class="add-comment-text  add-comment" (click)="addComent(prescription._id)"> Comment </ion-text>
             </div>
           </ion-item>
           <ion-item lines="none" class="comment-holder" *ngFor="let comment of prescription.comments"
